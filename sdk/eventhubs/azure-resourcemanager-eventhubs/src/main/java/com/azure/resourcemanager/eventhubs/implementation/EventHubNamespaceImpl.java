@@ -178,6 +178,11 @@ class EventHubNamespaceImpl
     }
 
     @Override
+    public boolean localAuthDisabled() {
+        return ResourceManagerUtils.toPrimitiveBoolean(this.innerModel().disableLocalAuth());
+    }
+
+    @Override
     public EventHubNamespaceImpl withSku(EventHubNamespaceSkuType namespaceSku) {
         Sku newSkuInner = new Sku().withName(namespaceSku.name()).withTier(namespaceSku.tier()).withCapacity(null);
         Sku currentSkuInner = this.innerModel().sku();
@@ -255,6 +260,12 @@ class EventHubNamespaceImpl
     @Override
     public boolean zoneRedundant() {
         return ResourceManagerUtils.toPrimitiveBoolean(this.innerModel().zoneRedundant());
+    }
+
+    @Override
+    public EventHubNamespaceImpl disableLocalAuth() {
+        this.innerModel().withDisableLocalAuth(true);
+        return this;
     }
 
     @Override

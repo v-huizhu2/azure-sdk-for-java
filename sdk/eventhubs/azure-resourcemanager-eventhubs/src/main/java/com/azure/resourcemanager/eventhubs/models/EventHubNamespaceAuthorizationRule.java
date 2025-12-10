@@ -78,7 +78,8 @@ public interface EventHubNamespaceAuthorizationRule extends AuthorizationRule<Ev
          * the resource to be created (via {@link WithCreate#create()}), but also allows
          * for any other optional settings to be specified.
          */
-        interface WithCreate extends Creatable<EventHubNamespaceAuthorizationRule> {
+        interface WithCreate extends AuthorizationRule.DefinitionStages.WithListenOrSendOrManage<WithCreate>,
+            Creatable<EventHubNamespaceAuthorizationRule> {
         }
     }
 
