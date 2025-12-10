@@ -294,13 +294,13 @@ public interface EventHubNamespace extends GroupableResource<EventHubsManager, E
         }
 
         /**
-         * The stage of Service Bus namespace definition allowing to disable local auth.
+         * The stage of Event Hub namespace definition allowing to disable local auth.
          */
         interface WithLocalAuth {
             /**
-             * Disables SAS authentication for the Service Bus namespace.
+             * Disables SAS authentication for the Event Hub namespace.
              *
-             * @return next stage of the Service Bus namespace definition
+             * @return next stage of the Event Hub namespace definition
              */
             default WithCreate disableLocalAuth() {
                 throw new UnsupportedOperationException("[disableLocalAuth] is not supported in " + getClass());
@@ -472,13 +472,13 @@ public interface EventHubNamespace extends GroupableResource<EventHubsManager, E
             Update withMinimumTlsVersion(TlsVersion minimumTlsVersion);
         }
         /**
-         * The stage of Service Bus namespace update allowing to disable local auth.
+         * The stage of Event Hub namespace update allowing to disable local auth.
          */
         interface WithLocalAuth {
             /**
-             * Disables SAS authentication for the Service Bus namespace.
+             * Disables SAS authentication for the Event Hub namespace.
              *
-             * @return next stage of the Service Bus namespace update
+             * @return next stage of the Event Hub namespace update
              */
             default Update disableLocalAuth() {
                 throw new UnsupportedOperationException("[disableLocalAuth] is not supported in " + getClass());
