@@ -12,6 +12,8 @@ import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.Region;
 import com.azure.core.management.profile.AzureProfile;
+import com.azure.resourcemanager.authorization.AuthorizationManager;
+import com.azure.resourcemanager.authorization.models.BuiltInRole;
 import com.azure.resourcemanager.eventhubs.models.AccessRights;
 import com.azure.resourcemanager.eventhubs.models.DisasterRecoveryPairingAuthorizationKey;
 import com.azure.resourcemanager.eventhubs.models.DisasterRecoveryPairingAuthorizationRule;
@@ -46,11 +48,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class EventHubTests extends ResourceManagerTestProxyTestBase {
     protected EventHubsManager eventHubsManager;
     protected StorageManager storageManager;
     protected ResourceManager resourceManager;
+    protected AuthorizationManager authorizationManager;
     private String rgName = "";
     private final Region region = Region.US_EAST;
 
@@ -67,6 +71,7 @@ public class EventHubTests extends ResourceManagerTestProxyTestBase {
         eventHubsManager = buildManager(EventHubsManager.class, httpPipeline, profile);
         storageManager = buildManager(StorageManager.class, httpPipeline, profile);
         resourceManager = eventHubsManager.resourceManager();
+        authorizationManager = buildManager(AuthorizationManager.class, httpPipeline, profile);
     }
 
     @Override
@@ -382,12 +387,21 @@ public class EventHubTests extends ResourceManagerTestProxyTestBase {
         final String eventHubName1 = generateRandomResourceName("eh", 14);
         final String eventHubName2 = generateRandomResourceName("eh", 14);
 
-        Creatable<StorageAccount> storageAccountCreatable = storageManager.storageAccounts()
+        StorageAccount storageAccount = storageManager.storageAccounts()
             .define(stgName)
             .withRegion(region)
             .withNewResourceGroup(rgName)
             .disableSharedKeyAccess()
-            .withSku(StorageAccountSkuType.STANDARD_LRS);
+            .withSku(StorageAccountSkuType.STANDARD_LRS)
+            .create();
+
+        authorizationManager.roleAssignments()
+            .define(UUID.randomUUID().toString())
+            .forUser(azureCliSignedInUser().userPrincipalName())
+            .withBuiltInRole(BuiltInRole.STORAGE_BLOB_DATA_CONTRIBUTOR)
+            .withResourceScope(storageAccount)
+            .withDescription("contributor role")
+            .create();
 
         Creatable<EventHubNamespace> namespaceCreatable
             = eventHubsManager.namespaces().define(namespaceName).withRegion(region).withNewResourceGroup(rgName).disableLocalAuth();
@@ -397,7 +411,7 @@ public class EventHubTests extends ResourceManagerTestProxyTestBase {
         EventHub eventHub1 = eventHubsManager.eventHubs()
             .define(eventHubName1)
             .withNewNamespace(namespaceCreatable)
-            .withNewStorageAccountForCapturedData(storageAccountCreatable, containerName1)
+            .withExistingStorageAccountForCapturedData(storageAccount.id(), containerName1)
             .withDataCaptureEnabled()
             // Window config is optional if not set service will choose default for it2
             //
@@ -467,16 +481,25 @@ public class EventHubTests extends ResourceManagerTestProxyTestBase {
 
         eventHub = eventHub.refresh();
 
-        Creatable<StorageAccount> storageAccountCreatable = storageManager.storageAccounts()
+        StorageAccount storageAccount = storageManager.storageAccounts()
             .define(stgName)
             .withRegion(region)
             .withNewResourceGroup(rgName)
             .disableSharedKeyAccess()
-            .withSku(StorageAccountSkuType.STANDARD_LRS);
+            .withSku(StorageAccountSkuType.STANDARD_LRS)
+            .create();
+
+        authorizationManager.roleAssignments()
+            .define(UUID.randomUUID().toString())
+            .forUser(azureCliSignedInUser().userPrincipalName())
+            .withBuiltInRole(BuiltInRole.STORAGE_BLOB_DATA_CONTRIBUTOR)
+            .withResourceScope(storageAccount)
+            .withDescription("contributor role")
+            .create();
 
         eventHub.update()
             .withDataCaptureEnabled()
-            .withNewStorageAccountForCapturedData(storageAccountCreatable, "eventctr")
+            .withExistingStorageAccountForCapturedData(storageAccount.id(), "eventctr")
             .apply();
 
         Assertions.assertTrue(eventHub.isDataCaptureEnabled());
