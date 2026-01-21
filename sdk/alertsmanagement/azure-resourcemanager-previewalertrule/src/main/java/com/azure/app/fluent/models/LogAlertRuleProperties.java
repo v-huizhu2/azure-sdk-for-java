@@ -353,7 +353,7 @@ public final class LogAlertRuleProperties implements JsonSerializable<LogAlertRu
                 } else if ("displayName".equals(fieldName)) {
                     deserializedLogAlertRuleProperties.displayName = reader.getString();
                 } else if ("severity".equals(fieldName)) {
-                    deserializedLogAlertRuleProperties.severity = AlertSeverity.fromValue(reader.getLong());
+                    deserializedLogAlertRuleProperties.severity = AlertSeverity.fromValue(reader.getFloat());
                 } else if ("enabled".equals(fieldName)) {
                     deserializedLogAlertRuleProperties.enabled = reader.getNullable(JsonReader::getBoolean);
                 } else if ("scopes".equals(fieldName)) {

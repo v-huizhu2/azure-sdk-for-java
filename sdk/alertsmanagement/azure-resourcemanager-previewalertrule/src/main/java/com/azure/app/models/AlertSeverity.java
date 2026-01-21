@@ -21,39 +21,39 @@ import java.util.function.Function;
  * Severity of the alert. Should be an integer between [0-4]. Value of 0 is severest. Relevant and required only for
  * rules of the kind LogAlert.
  */
-public final class AlertSeverity implements ExpandableEnum<Long>, JsonSerializable<AlertSeverity> {
-    private static final Map<Long, AlertSeverity> VALUES = new ConcurrentHashMap<>();
+public final class AlertSeverity implements ExpandableEnum<Float>, JsonSerializable<AlertSeverity> {
+    private static final Map<Float, AlertSeverity> VALUES = new ConcurrentHashMap<>();
 
-    private static final Function<Long, AlertSeverity> NEW_INSTANCE = AlertSeverity::new;
+    private static final Function<Float, AlertSeverity> NEW_INSTANCE = AlertSeverity::new;
 
     /**
      * Static value 0 for AlertSeverity.
      */
-    public static final AlertSeverity ZERO = fromValue(0L);
+    public static final AlertSeverity ZERO = fromValue(0f);
 
     /**
      * Static value 1 for AlertSeverity.
      */
-    public static final AlertSeverity ONE = fromValue(1L);
+    public static final AlertSeverity ONE = fromValue(1f);
 
     /**
      * Static value 2 for AlertSeverity.
      */
-    public static final AlertSeverity TWO = fromValue(2L);
+    public static final AlertSeverity TWO = fromValue(2f);
 
     /**
      * Static value 3 for AlertSeverity.
      */
-    public static final AlertSeverity THREE = fromValue(3L);
+    public static final AlertSeverity THREE = fromValue(3f);
 
     /**
      * Static value 4 for AlertSeverity.
      */
-    public static final AlertSeverity FOUR = fromValue(4L);
+    public static final AlertSeverity FOUR = fromValue(4f);
 
-    private final Long value;
+    private final Float value;
 
-    private AlertSeverity(Long value) {
+    private AlertSeverity(Float value) {
         this.value = value;
     }
 
@@ -64,7 +64,7 @@ public final class AlertSeverity implements ExpandableEnum<Long>, JsonSerializab
      * @return the corresponding AlertSeverity.
      * @throws IllegalArgumentException if value is null.
      */
-    public static AlertSeverity fromValue(Long value) {
+    public static AlertSeverity fromValue(Float value) {
         if (value == null) {
             throw new IllegalArgumentException("'value' cannot be null.");
         }
@@ -86,7 +86,7 @@ public final class AlertSeverity implements ExpandableEnum<Long>, JsonSerializab
      * @return the value of the AlertSeverity instance.
      */
     @Override
-    public Long getValue() {
+    public Float getValue() {
         return this.value;
     }
 
@@ -95,7 +95,7 @@ public final class AlertSeverity implements ExpandableEnum<Long>, JsonSerializab
      */
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
-        return jsonWriter.writeLong(getValue());
+        return jsonWriter.writeFloat(getValue());
     }
 
     /**
@@ -116,7 +116,7 @@ public final class AlertSeverity implements ExpandableEnum<Long>, JsonSerializab
             throw new IllegalStateException(
                 String.format("Unexpected JSON token for %s deserialization: %s", JsonToken.NUMBER, nextToken));
         }
-        return AlertSeverity.fromValue(jsonReader.getLong());
+        return AlertSeverity.fromValue(jsonReader.getFloat());
     }
 
     @Override

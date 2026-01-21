@@ -18,8 +18,8 @@ public interface ResourceProvidersClient {
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -33,8 +33,8 @@ public interface ResourceProvidersClient {
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.

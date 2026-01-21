@@ -62,22 +62,20 @@ public final class ResourceProvidersClientImpl implements ResourceProvidersClien
     @ServiceInterface(name = "PreviewAlertRuleApiInAlertsManagementServiceResourceProviderResourceProviders")
     public interface ResourceProvidersService {
         @Headers({ "Content-Type: application/json" })
-        @Post("/{resourceId}/providers/Microsoft.AlertsManagement/previewAlertRule")
+        @Post("/{resourceId}/providers/microsoft.AlertsManagement/previewAlertRule")
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Mono<Response<PreviewAlertRuleResponseInner>> previewAlertRule(@HostParam("$host") String endpoint,
-            @PathParam(value = "resourceId", encoded = true) String resourceId,
-            @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("resourceId") String resourceId,
             @BodyParam("application/json") PreviewAlertRuleRequest parameters, @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({ "Content-Type: application/json" })
-        @Post("/{resourceId}/providers/Microsoft.AlertsManagement/previewAlertRule")
+        @Post("/{resourceId}/providers/microsoft.AlertsManagement/previewAlertRule")
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Response<PreviewAlertRuleResponseInner> previewAlertRuleSync(@HostParam("$host") String endpoint,
-            @PathParam(value = "resourceId", encoded = true) String resourceId,
-            @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("resourceId") String resourceId,
             @BodyParam("application/json") PreviewAlertRuleRequest parameters, @HeaderParam("Accept") String accept,
             Context context);
     }
@@ -85,8 +83,8 @@ public final class ResourceProvidersClientImpl implements ResourceProvidersClien
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -109,16 +107,16 @@ public final class ResourceProvidersClientImpl implements ResourceProvidersClien
         }
         final String accept = "application/json";
         return FluxUtil
-            .withContext(context -> service.previewAlertRule(this.client.getEndpoint(), resourceId,
-                this.client.getApiVersion(), parameters, accept, context))
+            .withContext(context -> service.previewAlertRule(this.client.getEndpoint(), this.client.getApiVersion(),
+                resourceId, parameters, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -134,8 +132,8 @@ public final class ResourceProvidersClientImpl implements ResourceProvidersClien
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -161,15 +159,15 @@ public final class ResourceProvidersClientImpl implements ResourceProvidersClien
             parameters.validate();
         }
         final String accept = "application/json";
-        return service.previewAlertRuleSync(this.client.getEndpoint(), resourceId, this.client.getApiVersion(),
+        return service.previewAlertRuleSync(this.client.getEndpoint(), this.client.getApiVersion(), resourceId,
             parameters, accept, context);
     }
 
     /**
      * Retrieves the results of a simulated historical execution of an alert rule.
      * 
-     * @param resourceId The identifier of the resource.
-     * @param parameters The alert rule to preview.
+     * @param resourceId The resourceId parameter.
+     * @param parameters The parameters parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
