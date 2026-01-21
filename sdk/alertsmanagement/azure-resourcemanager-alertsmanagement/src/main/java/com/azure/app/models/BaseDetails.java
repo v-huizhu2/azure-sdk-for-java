@@ -78,12 +78,12 @@ public class BaseDetails implements JsonSerializable<BaseDetails> {
                     }
                 }
                 // Use the discriminator value to determine which subtype should be deserialized.
-                if ("PropertyChange".equals(discriminatorValue)) {
-                    return PropertyChangeDetails.fromJson(readerToUse.reset());
-                } else if ("ActionsSuppressed".equals(discriminatorValue)) {
+                if ("ActionsSuppressed".equals(discriminatorValue)) {
                     return ActionSuppressedDetails.fromJson(readerToUse.reset());
                 } else if ("ActionsTriggered".equals(discriminatorValue)) {
                     return ActionTriggeredDetails.fromJson(readerToUse.reset());
+                } else if ("PropertyChange".equals(discriminatorValue)) {
+                    return PropertyChangeDetails.fromJson(readerToUse.reset());
                 } else {
                     return fromJsonKnownDiscriminator(readerToUse.reset());
                 }

@@ -199,9 +199,7 @@ public class AlertEnrichmentItem implements JsonSerializable<AlertEnrichmentItem
                     }
                 }
                 // Use the discriminator value to determine which subtype should be deserialized.
-                if ("PrometheusEnrichmentItem".equals(discriminatorValue)) {
-                    return PrometheusEnrichmentItem.fromJsonKnownDiscriminator(readerToUse.reset());
-                } else if ("PrometheusInstantQuery".equals(discriminatorValue)) {
+                if ("PrometheusInstantQuery".equals(discriminatorValue)) {
                     return PrometheusInstantQuery.fromJson(readerToUse.reset());
                 } else if ("PrometheusRangeQuery".equals(discriminatorValue)) {
                     return PrometheusRangeQuery.fromJson(readerToUse.reset());

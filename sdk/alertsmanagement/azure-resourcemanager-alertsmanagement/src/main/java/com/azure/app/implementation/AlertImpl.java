@@ -7,6 +7,7 @@ package com.azure.app.implementation;
 import com.azure.app.fluent.models.AlertInner;
 import com.azure.app.models.Alert;
 import com.azure.app.models.AlertProperties;
+import com.azure.core.management.SystemData;
 
 public final class AlertImpl implements Alert {
     private AlertInner innerObject;
@@ -32,6 +33,10 @@ public final class AlertImpl implements Alert {
 
     public AlertProperties properties() {
         return this.innerModel().properties();
+    }
+
+    public SystemData systemData() {
+        return this.innerModel().systemData();
     }
 
     public AlertInner innerModel() {

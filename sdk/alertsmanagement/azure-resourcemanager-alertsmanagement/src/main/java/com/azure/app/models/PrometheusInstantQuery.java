@@ -16,11 +16,31 @@ import java.util.List;
  * Prometheus instant query enrichment object.
  */
 @Fluent
-public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
+public final class PrometheusInstantQuery extends AlertEnrichmentItem {
     /*
      * The enrichment type.
      */
     private Type type = Type.PROMETHEUS_INSTANT_QUERY;
+
+    /*
+     * Link to Prometheus query API (Url format).
+     */
+    private String linkToApi;
+
+    /*
+     * An array of the azure monitor workspace resource ids.
+     */
+    private List<String> datasources;
+
+    /*
+     * Partial link to the Grafana explore API.
+     */
+    private String grafanaExplorePath;
+
+    /*
+     * The Prometheus expression query.
+     */
+    private String query;
 
     /*
      * The date and the time of the evaluation.
@@ -44,6 +64,86 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
     }
 
     /**
+     * Get the linkToApi property: Link to Prometheus query API (Url format).
+     * 
+     * @return the linkToApi value.
+     */
+    public String linkToApi() {
+        return this.linkToApi;
+    }
+
+    /**
+     * Set the linkToApi property: Link to Prometheus query API (Url format).
+     * 
+     * @param linkToApi the linkToApi value to set.
+     * @return the PrometheusInstantQuery object itself.
+     */
+    public PrometheusInstantQuery withLinkToApi(String linkToApi) {
+        this.linkToApi = linkToApi;
+        return this;
+    }
+
+    /**
+     * Get the datasources property: An array of the azure monitor workspace resource ids.
+     * 
+     * @return the datasources value.
+     */
+    public List<String> datasources() {
+        return this.datasources;
+    }
+
+    /**
+     * Set the datasources property: An array of the azure monitor workspace resource ids.
+     * 
+     * @param datasources the datasources value to set.
+     * @return the PrometheusInstantQuery object itself.
+     */
+    public PrometheusInstantQuery withDatasources(List<String> datasources) {
+        this.datasources = datasources;
+        return this;
+    }
+
+    /**
+     * Get the grafanaExplorePath property: Partial link to the Grafana explore API.
+     * 
+     * @return the grafanaExplorePath value.
+     */
+    public String grafanaExplorePath() {
+        return this.grafanaExplorePath;
+    }
+
+    /**
+     * Set the grafanaExplorePath property: Partial link to the Grafana explore API.
+     * 
+     * @param grafanaExplorePath the grafanaExplorePath value to set.
+     * @return the PrometheusInstantQuery object itself.
+     */
+    public PrometheusInstantQuery withGrafanaExplorePath(String grafanaExplorePath) {
+        this.grafanaExplorePath = grafanaExplorePath;
+        return this;
+    }
+
+    /**
+     * Get the query property: The Prometheus expression query.
+     * 
+     * @return the query value.
+     */
+    public String query() {
+        return this.query;
+    }
+
+    /**
+     * Set the query property: The Prometheus expression query.
+     * 
+     * @param query the query value to set.
+     * @return the PrometheusInstantQuery object itself.
+     */
+    public PrometheusInstantQuery withQuery(String query) {
+        this.query = query;
+        return this;
+    }
+
+    /**
      * Get the time property: The date and the time of the evaluation.
      * 
      * @return the time value.
@@ -60,42 +160,6 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
      */
     public PrometheusInstantQuery withTime(String time) {
         this.time = time;
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusInstantQuery withLinkToApi(String linkToApi) {
-        super.withLinkToApi(linkToApi);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusInstantQuery withDatasources(List<String> datasources) {
-        super.withDatasources(datasources);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusInstantQuery withGrafanaExplorePath(String grafanaExplorePath) {
-        super.withGrafanaExplorePath(grafanaExplorePath);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusInstantQuery withQuery(String query) {
-        super.withQuery(query);
         return this;
     }
 
@@ -142,23 +206,6 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
      */
     @Override
     public void validate() {
-        if (time() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Missing required property time in model PrometheusInstantQuery"));
-        }
-        if (title() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Missing required property title in model PrometheusInstantQuery"));
-        }
-        if (description() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Missing required property description in model PrometheusInstantQuery"));
-        }
-        if (status() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Missing required property status in model PrometheusInstantQuery"));
-        }
         if (linkToApi() == null) {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException(
@@ -178,6 +225,23 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException("Missing required property query in model PrometheusInstantQuery"));
         }
+        if (time() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property time in model PrometheusInstantQuery"));
+        }
+        if (title() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property title in model PrometheusInstantQuery"));
+        }
+        if (description() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Missing required property description in model PrometheusInstantQuery"));
+        }
+        if (status() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property status in model PrometheusInstantQuery"));
+        }
     }
 
     private static final ClientLogger LOGGER = new ClientLogger(PrometheusInstantQuery.class);
@@ -191,11 +255,11 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
         jsonWriter.writeStringField("title", title());
         jsonWriter.writeStringField("description", description());
         jsonWriter.writeStringField("status", status() == null ? null : status().toString());
-        jsonWriter.writeStringField("linkToApi", linkToApi());
-        jsonWriter.writeArrayField("datasources", datasources(), (writer, element) -> writer.writeString(element));
-        jsonWriter.writeStringField("grafanaExplorePath", grafanaExplorePath());
-        jsonWriter.writeStringField("query", query());
         jsonWriter.writeStringField("errorMessage", errorMessage());
+        jsonWriter.writeStringField("linkToApi", this.linkToApi);
+        jsonWriter.writeArrayField("datasources", this.datasources, (writer, element) -> writer.writeString(element));
+        jsonWriter.writeStringField("grafanaExplorePath", this.grafanaExplorePath);
+        jsonWriter.writeStringField("query", this.query);
         jsonWriter.writeStringField("time", this.time);
         jsonWriter.writeStringField("type", this.type == null ? null : this.type.toString());
         return jsonWriter.writeEndObject();
@@ -223,17 +287,17 @@ public final class PrometheusInstantQuery extends PrometheusEnrichmentItem {
                     deserializedPrometheusInstantQuery.withDescription(reader.getString());
                 } else if ("status".equals(fieldName)) {
                     deserializedPrometheusInstantQuery.withStatus(Status.fromString(reader.getString()));
-                } else if ("linkToApi".equals(fieldName)) {
-                    deserializedPrometheusInstantQuery.withLinkToApi(reader.getString());
-                } else if ("datasources".equals(fieldName)) {
-                    List<String> datasources = reader.readArray(reader1 -> reader1.getString());
-                    deserializedPrometheusInstantQuery.withDatasources(datasources);
-                } else if ("grafanaExplorePath".equals(fieldName)) {
-                    deserializedPrometheusInstantQuery.withGrafanaExplorePath(reader.getString());
-                } else if ("query".equals(fieldName)) {
-                    deserializedPrometheusInstantQuery.withQuery(reader.getString());
                 } else if ("errorMessage".equals(fieldName)) {
                     deserializedPrometheusInstantQuery.withErrorMessage(reader.getString());
+                } else if ("linkToApi".equals(fieldName)) {
+                    deserializedPrometheusInstantQuery.linkToApi = reader.getString();
+                } else if ("datasources".equals(fieldName)) {
+                    List<String> datasources = reader.readArray(reader1 -> reader1.getString());
+                    deserializedPrometheusInstantQuery.datasources = datasources;
+                } else if ("grafanaExplorePath".equals(fieldName)) {
+                    deserializedPrometheusInstantQuery.grafanaExplorePath = reader.getString();
+                } else if ("query".equals(fieldName)) {
+                    deserializedPrometheusInstantQuery.query = reader.getString();
                 } else if ("time".equals(fieldName)) {
                     deserializedPrometheusInstantQuery.time = reader.getString();
                 } else if ("type".equals(fieldName)) {

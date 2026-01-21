@@ -6,6 +6,7 @@ package com.azure.app.models;
 
 import com.azure.app.fluent.models.AlertEnrichmentResponseInner;
 import com.azure.core.annotation.Fluent;
+import com.azure.core.util.logging.ClientLogger;
 import com.azure.json.JsonReader;
 import com.azure.json.JsonSerializable;
 import com.azure.json.JsonToken;
@@ -19,12 +20,12 @@ import java.util.List;
 @Fluent
 public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichmentsList> {
     /*
-     * List the alert's enrichments
+     * The AlertEnrichmentResponse items on this page
      */
     private List<AlertEnrichmentResponseInner> value;
 
     /*
-     * Request URL that can be used to query next page.
+     * The link to the next page of items
      */
     private String nextLink;
 
@@ -35,7 +36,7 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
     }
 
     /**
-     * Get the value property: List the alert's enrichments.
+     * Get the value property: The AlertEnrichmentResponse items on this page.
      * 
      * @return the value value.
      */
@@ -44,7 +45,7 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
     }
 
     /**
-     * Set the value property: List the alert's enrichments.
+     * Set the value property: The AlertEnrichmentResponse items on this page.
      * 
      * @param value the value value to set.
      * @return the AlertEnrichmentsList object itself.
@@ -55,7 +56,7 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
     }
 
     /**
-     * Get the nextLink property: Request URL that can be used to query next page.
+     * Get the nextLink property: The link to the next page of items.
      * 
      * @return the nextLink value.
      */
@@ -64,7 +65,7 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
     }
 
     /**
-     * Set the nextLink property: Request URL that can be used to query next page.
+     * Set the nextLink property: The link to the next page of items.
      * 
      * @param nextLink the nextLink value to set.
      * @return the AlertEnrichmentsList object itself.
@@ -80,10 +81,15 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (value() != null) {
+        if (value() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property value in model AlertEnrichmentsList"));
+        } else {
             value().forEach(e -> e.validate());
         }
     }
+
+    private static final ClientLogger LOGGER = new ClientLogger(AlertEnrichmentsList.class);
 
     /**
      * {@inheritDoc}
@@ -102,6 +108,7 @@ public final class AlertEnrichmentsList implements JsonSerializable<AlertEnrichm
      * @param jsonReader The JsonReader being read.
      * @return An instance of AlertEnrichmentsList if the JsonReader was pointing to an instance of it, or null if it
      * was pointing to JSON null.
+     * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the AlertEnrichmentsList.
      */
     public static AlertEnrichmentsList fromJson(JsonReader jsonReader) throws IOException {

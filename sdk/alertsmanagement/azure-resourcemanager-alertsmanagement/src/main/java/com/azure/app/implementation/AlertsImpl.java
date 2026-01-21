@@ -44,101 +44,6 @@ public final class AlertsImpl implements Alerts {
         this.serviceManager = serviceManager;
     }
 
-    public PagedIterable<Alert> getAllTenant() {
-        PagedIterable<AlertInner> inner = this.serviceClient().getAllTenant();
-        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertImpl(inner1, this.manager()));
-    }
-
-    public PagedIterable<Alert> getAllTenant(String targetResource, String targetResourceType,
-        String targetResourceGroup, MonitorService monitorService, MonitorCondition monitorCondition, Severity severity,
-        AlertState alertState, String alertRule, String smartGroupId, Boolean includeContext,
-        Boolean includeEgressConfig, Long pageCount, AlertsSortByFields sortBy, SortOrder sortOrder, String select,
-        TimeRange timeRange, String customTimeRange, Context context) {
-        PagedIterable<AlertInner> inner = this.serviceClient()
-            .getAllTenant(targetResource, targetResourceType, targetResourceGroup, monitorService, monitorCondition,
-                severity, alertState, alertRule, smartGroupId, includeContext, includeEgressConfig, pageCount, sortBy,
-                sortOrder, select, timeRange, customTimeRange, context);
-        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertImpl(inner1, this.manager()));
-    }
-
-    public Response<Alert> getByIdTenantWithResponse(String alertId, Context context) {
-        Response<AlertInner> inner = this.serviceClient().getByIdTenantWithResponse(alertId, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new AlertImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public Alert getByIdTenant(String alertId) {
-        AlertInner inner = this.serviceClient().getByIdTenant(alertId);
-        if (inner != null) {
-            return new AlertImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
-    public Response<AlertModification> getHistoryTenantWithResponse(String alertId, Context context) {
-        Response<AlertModificationInner> inner = this.serviceClient().getHistoryTenantWithResponse(alertId, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new AlertModificationImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public AlertModification getHistoryTenant(String alertId) {
-        AlertModificationInner inner = this.serviceClient().getHistoryTenant(alertId);
-        if (inner != null) {
-            return new AlertModificationImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
-    public Response<Alert> changeStateTenantWithResponse(String alertId, AlertState newState, Comments comment,
-        Context context) {
-        Response<AlertInner> inner
-            = this.serviceClient().changeStateTenantWithResponse(alertId, newState, comment, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new AlertImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public Alert changeStateTenant(String alertId, AlertState newState) {
-        AlertInner inner = this.serviceClient().changeStateTenant(alertId, newState);
-        if (inner != null) {
-            return new AlertImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
-    public Response<AlertsMetadata> metadataWithResponse(Identifier identifier, Context context) {
-        Response<AlertsMetadataInner> inner = this.serviceClient().metadataWithResponse(identifier, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new AlertsMetadataImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public AlertsMetadata metadata(Identifier identifier) {
-        AlertsMetadataInner inner = this.serviceClient().metadata(identifier);
-        if (inner != null) {
-            return new AlertsMetadataImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
     public PagedIterable<Alert> getAll(String scope) {
         PagedIterable<AlertInner> inner = this.serviceClient().getAll(scope);
         return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertImpl(inner1, this.manager()));
@@ -196,6 +101,17 @@ public final class AlertsImpl implements Alerts {
         }
     }
 
+    public PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId) {
+        PagedIterable<AlertEnrichmentResponseInner> inner = this.serviceClient().getEnrichments(scope, alertId);
+        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertEnrichmentResponseImpl(inner1, this.manager()));
+    }
+
+    public PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId, Context context) {
+        PagedIterable<AlertEnrichmentResponseInner> inner
+            = this.serviceClient().getEnrichments(scope, alertId, context);
+        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertEnrichmentResponseImpl(inner1, this.manager()));
+    }
+
     public Response<AlertModification> getHistoryWithResponse(String scope, String alertId, Context context) {
         Response<AlertModificationInner> inner = this.serviceClient().getHistoryWithResponse(scope, alertId, context);
         if (inner != null) {
@@ -240,15 +156,99 @@ public final class AlertsImpl implements Alerts {
         }
     }
 
-    public PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId) {
-        PagedIterable<AlertEnrichmentResponseInner> inner = this.serviceClient().getEnrichments(scope, alertId);
-        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertEnrichmentResponseImpl(inner1, this.manager()));
+    public PagedIterable<Alert> getAllTenant() {
+        PagedIterable<AlertInner> inner = this.serviceClient().getAllTenant();
+        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertImpl(inner1, this.manager()));
     }
 
-    public PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId, Context context) {
-        PagedIterable<AlertEnrichmentResponseInner> inner
-            = this.serviceClient().getEnrichments(scope, alertId, context);
-        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertEnrichmentResponseImpl(inner1, this.manager()));
+    public PagedIterable<Alert> getAllTenant(String targetResource, String targetResourceType,
+        String targetResourceGroup, MonitorService monitorService, MonitorCondition monitorCondition, Severity severity,
+        AlertState alertState, String alertRule, String smartGroupId, Boolean includeContext,
+        Boolean includeEgressConfig, Long pageCount, AlertsSortByFields sortBy, SortOrder sortOrder, String select,
+        TimeRange timeRange, String customTimeRange, Context context) {
+        PagedIterable<AlertInner> inner = this.serviceClient()
+            .getAllTenant(targetResource, targetResourceType, targetResourceGroup, monitorService, monitorCondition,
+                severity, alertState, alertRule, smartGroupId, includeContext, includeEgressConfig, pageCount, sortBy,
+                sortOrder, select, timeRange, customTimeRange, context);
+        return ResourceManagerUtils.mapPage(inner, inner1 -> new AlertImpl(inner1, this.manager()));
+    }
+
+    public Response<Alert> getByIdTenantWithResponse(String alertId, Context context) {
+        Response<AlertInner> inner = this.serviceClient().getByIdTenantWithResponse(alertId, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new AlertImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public Alert getByIdTenant(String alertId) {
+        AlertInner inner = this.serviceClient().getByIdTenant(alertId);
+        if (inner != null) {
+            return new AlertImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<Alert> changeStateTenantWithResponse(String alertId, AlertState newState, Comments comment,
+        Context context) {
+        Response<AlertInner> inner
+            = this.serviceClient().changeStateTenantWithResponse(alertId, newState, comment, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new AlertImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public Alert changeStateTenant(String alertId, AlertState newState) {
+        AlertInner inner = this.serviceClient().changeStateTenant(alertId, newState);
+        if (inner != null) {
+            return new AlertImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<AlertModification> getHistoryTenantWithResponse(String alertId, Context context) {
+        Response<AlertModificationInner> inner = this.serviceClient().getHistoryTenantWithResponse(alertId, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new AlertModificationImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public AlertModification getHistoryTenant(String alertId) {
+        AlertModificationInner inner = this.serviceClient().getHistoryTenant(alertId);
+        if (inner != null) {
+            return new AlertModificationImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<AlertsMetadata> metadataWithResponse(Identifier identifier, Context context) {
+        Response<AlertsMetadataInner> inner = this.serviceClient().metadataWithResponse(identifier, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new AlertsMetadataImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public AlertsMetadata metadata(Identifier identifier) {
+        AlertsMetadataInner inner = this.serviceClient().metadata(identifier);
+        if (inner != null) {
+            return new AlertsMetadataImpl(inner, this.manager());
+        } else {
+            return null;
+        }
     }
 
     private AlertsClient serviceClient() {

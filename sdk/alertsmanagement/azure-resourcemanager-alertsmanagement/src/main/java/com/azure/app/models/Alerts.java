@@ -16,6 +16,249 @@ public interface Alerts {
      * List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g. time
      * range). The results can then be sorted on the basis specific fields, with the default being lastModifiedDateTime.
      * 
+     * @param scope undefined.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list the alerts as paginated response with {@link PagedIterable}.
+     */
+    PagedIterable<Alert> getAll(String scope);
+
+    /**
+     * List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g. time
+     * range). The results can then be sorted on the basis specific fields, with the default being lastModifiedDateTime.
+     * 
+     * @param scope undefined.
+     * @param targetResource Filter by target resource( which is full ARM ID) Default value is select all.
+     * @param targetResourceType Filter by target resource type. Default value is select all.
+     * @param targetResourceGroup Filter by target resource group name. Default value is select all.
+     * @param monitorService Filter by monitor service which generates the alert instance. Default value is select all.
+     * @param monitorCondition Filter by monitor condition which is either 'Fired' or 'Resolved'. Default value is to
+     * select all.
+     * @param severity Filter by severity. Default value is select all.
+     * @param alertState Filter by state of the alert instance. Default value is to select all.
+     * @param alertRule Filter by specific alert rule. Default value is to select all.
+     * @param smartGroupId Filter the alerts list by the Smart Group Id. Default value is none.
+     * @param includeContext Include context which has contextual data specific to the monitor service. Default value is
+     * false'.
+     * @param includeEgressConfig Include egress config which would be used for displaying the content in portal.
+     * Default value is 'false'.
+     * @param pageCount Determines number of alerts returned per page in response. Permissible value is between 1 to
+     * 250. When the "includeContent" filter is selected, maximum value allowed is 25. Default value is 25.
+     * @param sortBy Sort the query results by input field, Default value is 'lastModifiedDateTime'.
+     * @param sortOrder Sort the query results order in either ascending or descending. Default value is 'desc' for time
+     * fields and 'asc' for others.
+     * @param select This filter allows to selection of the fields(comma separated) which would be part of the essential
+     * section. This would allow to project only the required fields rather than getting entire content. Default is to
+     * fetch all the fields in the essentials section.
+     * @param timeRange Filter by time range by below listed values. Default value is 1 day.
+     * @param customTimeRange Filter by custom time range in the format &lt;start-time&gt;/&lt;end-time&gt; where time
+     * is in (ISO-8601 format)'. Permissible values is within 30 days from query time. Either timeRange or
+     * customTimeRange could be used but not both. Default is none.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list the alerts as paginated response with {@link PagedIterable}.
+     */
+    PagedIterable<Alert> getAll(String scope, String targetResource, String targetResourceType,
+        String targetResourceGroup, MonitorService monitorService, MonitorCondition monitorCondition, Severity severity,
+        AlertState alertState, String alertRule, String smartGroupId, Boolean includeContext,
+        Boolean includeEgressConfig, Long pageCount, AlertsSortByFields sortBy, SortOrder sortOrder, String select,
+        TimeRange timeRange, String customTimeRange, Context context);
+
+    /**
+     * Get a specific alert.
+     * 
+     * Get information related to a specific alert. If scope is a deleted resource then please use scope as parent
+     * resource of the delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to get alert by id then use parent resource of scope. So in this example
+     * get alert by id call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return information related to a specific alert along with {@link Response}.
+     */
+    Response<Alert> getByIdWithResponse(String scope, String alertId, Context context);
+
+    /**
+     * Get a specific alert.
+     * 
+     * Get information related to a specific alert. If scope is a deleted resource then please use scope as parent
+     * resource of the delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to get alert by id then use parent resource of scope. So in this example
+     * get alert by id call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return information related to a specific alert.
+     */
+    Alert getById(String scope, String alertId);
+
+    /**
+     * Change the state of an alert. If scope is a deleted resource then please use scope as parent resource of the
+     * delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to change state of this particular alert then use parent resource of scope.
+     * So in this example change state call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @param newState New state of the alert.
+     * @param comment reason of change alert state.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return an alert created in alert management service along with {@link Response}.
+     */
+    Response<Alert> changeStateWithResponse(String scope, String alertId, AlertState newState, Comments comment,
+        Context context);
+
+    /**
+     * Change the state of an alert. If scope is a deleted resource then please use scope as parent resource of the
+     * delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to change state of this particular alert then use parent resource of scope.
+     * So in this example change state call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @param newState New state of the alert.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return an alert created in alert management service.
+     */
+    Alert changeState(String scope, String alertId, AlertState newState);
+
+    /**
+     * Get the enrichments of an alert. It returns a collection of one object named default.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the enrichments of an alert as paginated response with {@link PagedIterable}.
+     */
+    PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId);
+
+    /**
+     * Get the enrichments of an alert. It returns a collection of one object named default.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the enrichments of an alert as paginated response with {@link PagedIterable}.
+     */
+    PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId, Context context);
+
+    /**
+     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
+     * (New/Acknowledged/Closed) and applied action rules for that particular alert. If scope is a deleted resource then
+     * please use scope as parent resource of the delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to get history of this particular alert then use parent resource of scope.
+     * So in this example get history call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
+     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert along with {@link Response}.
+     */
+    Response<AlertModification> getHistoryWithResponse(String scope, String alertId, Context context);
+
+    /**
+     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
+     * (New/Acknowledged/Closed) and applied action rules for that particular alert. If scope is a deleted resource then
+     * please use scope as parent resource of the delete resource. For example if my alert id is
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
+     * and 'vm1' is deleted then if you want to get history of this particular alert then use parent resource of scope.
+     * So in this example get history call will look like this:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history'.
+     * 
+     * @param scope undefined.
+     * @param alertId Unique ID of an alert instance.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
+     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert.
+     */
+    AlertModification getHistory(String scope, String alertId);
+
+    /**
+     * Get a summarized count of your alerts grouped by various parameters (e.g. grouping by 'Severity' returns the
+     * count of alerts for each severity).
+     * 
+     * @param scope The fully qualified Azure Resource manager identifier of the resource.
+     * @param groupby This parameter allows the result set to be grouped by input fields. For example,
+     * groupby=severity,alertstate.
+     * @param includeSmartGroupsCount Include count of the SmartGroups as part of the summary. Default value is 'false'.
+     * @param targetResource Filter by target resource( which is full ARM ID) Default value is select all.
+     * @param targetResourceType Filter by target resource type. Default value is select all.
+     * @param targetResourceGroup Filter by target resource group name. Default value is select all.
+     * @param monitorService Filter by monitor service which generates the alert instance. Default value is select all.
+     * @param monitorCondition Filter by monitor condition which is either 'Fired' or 'Resolved'. Default value is to
+     * select all.
+     * @param severity Filter by severity. Default value is select all.
+     * @param alertState Filter by state of the alert instance. Default value is to select all.
+     * @param alertRule Filter by specific alert rule. Default value is to select all.
+     * @param timeRange Filter by time range by below listed values. Default value is 1 day.
+     * @param customTimeRange Filter by custom time range in the format &lt;start-time&gt;/&lt;end-time&gt; where time
+     * is in (ISO-8601 format)'. Permissible values is within 30 days from query time. Either timeRange or
+     * customTimeRange could be used but not both. Default is none.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a summarized count of your alerts grouped by various parameters (e.g along with {@link Response}.
+     */
+    Response<AlertsSummary> getSummaryWithResponse(String scope, AlertsSummaryGroupByFields groupby,
+        Boolean includeSmartGroupsCount, String targetResource, String targetResourceType, String targetResourceGroup,
+        MonitorService monitorService, MonitorCondition monitorCondition, Severity severity, AlertState alertState,
+        String alertRule, TimeRange timeRange, String customTimeRange, Context context);
+
+    /**
+     * Get a summarized count of your alerts grouped by various parameters (e.g. grouping by 'Severity' returns the
+     * count of alerts for each severity).
+     * 
+     * @param scope The fully qualified Azure Resource manager identifier of the resource.
+     * @param groupby This parameter allows the result set to be grouped by input fields. For example,
+     * groupby=severity,alertstate.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a summarized count of your alerts grouped by various parameters (e.g.
+     */
+    AlertsSummary getSummary(String scope, AlertsSummaryGroupByFields groupby);
+
+    /**
+     * List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g. time
+     * range). The results can then be sorted on the basis specific fields, with the default being lastModifiedDateTime.
+     * 
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return list the alerts as paginated response with {@link PagedIterable}.
@@ -92,33 +335,6 @@ public interface Alerts {
     Alert getByIdTenant(String alertId);
 
     /**
-     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
-     * (New/Acknowledged/Closed) and applied action rules for that particular alert.
-     * 
-     * @param alertId Unique ID of an alert instance.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
-     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert along with {@link Response}.
-     */
-    Response<AlertModification> getHistoryTenantWithResponse(String alertId, Context context);
-
-    /**
-     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
-     * (New/Acknowledged/Closed) and applied action rules for that particular alert.
-     * 
-     * @param alertId Unique ID of an alert instance.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
-     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert.
-     */
-    AlertModification getHistoryTenant(String alertId);
-
-    /**
      * Change the state of an alert.
      * 
      * @param alertId Unique ID of an alert instance.
@@ -146,6 +362,33 @@ public interface Alerts {
     Alert changeStateTenant(String alertId, AlertState newState);
 
     /**
+     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
+     * (New/Acknowledged/Closed) and applied action rules for that particular alert.
+     * 
+     * @param alertId Unique ID of an alert instance.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
+     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert along with {@link Response}.
+     */
+    Response<AlertModification> getHistoryTenantWithResponse(String alertId, Context context);
+
+    /**
+     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
+     * (New/Acknowledged/Closed) and applied action rules for that particular alert.
+     * 
+     * @param alertId Unique ID of an alert instance.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
+     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert.
+     */
+    AlertModification getHistoryTenant(String alertId);
+
+    /**
      * List alerts meta data information based on value of identifier parameter.
      * 
      * @param identifier Identification of the information to be retrieved by API call.
@@ -167,247 +410,4 @@ public interface Alerts {
      * @return alert meta data information.
      */
     AlertsMetadata metadata(Identifier identifier);
-
-    /**
-     * List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g. time
-     * range). The results can then be sorted on the basis specific fields, with the default being lastModifiedDateTime.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return list the alerts as paginated response with {@link PagedIterable}.
-     */
-    PagedIterable<Alert> getAll(String scope);
-
-    /**
-     * List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g. time
-     * range). The results can then be sorted on the basis specific fields, with the default being lastModifiedDateTime.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param targetResource Filter by target resource( which is full ARM ID) Default value is select all.
-     * @param targetResourceType Filter by target resource type. Default value is select all.
-     * @param targetResourceGroup Filter by target resource group name. Default value is select all.
-     * @param monitorService Filter by monitor service which generates the alert instance. Default value is select all.
-     * @param monitorCondition Filter by monitor condition which is either 'Fired' or 'Resolved'. Default value is to
-     * select all.
-     * @param severity Filter by severity. Default value is select all.
-     * @param alertState Filter by state of the alert instance. Default value is to select all.
-     * @param alertRule Filter by specific alert rule. Default value is to select all.
-     * @param smartGroupId Filter the alerts list by the Smart Group Id. Default value is none.
-     * @param includeContext Include context which has contextual data specific to the monitor service. Default value is
-     * false'.
-     * @param includeEgressConfig Include egress config which would be used for displaying the content in portal.
-     * Default value is 'false'.
-     * @param pageCount Determines number of alerts returned per page in response. Permissible value is between 1 to
-     * 250. When the "includeContent" filter is selected, maximum value allowed is 25. Default value is 25.
-     * @param sortBy Sort the query results by input field, Default value is 'lastModifiedDateTime'.
-     * @param sortOrder Sort the query results order in either ascending or descending. Default value is 'desc' for time
-     * fields and 'asc' for others.
-     * @param select This filter allows to selection of the fields(comma separated) which would be part of the essential
-     * section. This would allow to project only the required fields rather than getting entire content. Default is to
-     * fetch all the fields in the essentials section.
-     * @param timeRange Filter by time range by below listed values. Default value is 1 day.
-     * @param customTimeRange Filter by custom time range in the format &lt;start-time&gt;/&lt;end-time&gt; where time
-     * is in (ISO-8601 format)'. Permissible values is within 30 days from query time. Either timeRange or
-     * customTimeRange could be used but not both. Default is none.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return list the alerts as paginated response with {@link PagedIterable}.
-     */
-    PagedIterable<Alert> getAll(String scope, String targetResource, String targetResourceType,
-        String targetResourceGroup, MonitorService monitorService, MonitorCondition monitorCondition, Severity severity,
-        AlertState alertState, String alertRule, String smartGroupId, Boolean includeContext,
-        Boolean includeEgressConfig, Long pageCount, AlertsSortByFields sortBy, SortOrder sortOrder, String select,
-        TimeRange timeRange, String customTimeRange, Context context);
-
-    /**
-     * Get a specific alert.
-     * 
-     * Get information related to a specific alert. If scope is a deleted resource then please use scope as parent
-     * resource of the delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to get alert by id then use parent resource of scope. So in this example
-     * get alert by id call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return information related to a specific alert along with {@link Response}.
-     */
-    Response<Alert> getByIdWithResponse(String scope, String alertId, Context context);
-
-    /**
-     * Get a specific alert.
-     * 
-     * Get information related to a specific alert. If scope is a deleted resource then please use scope as parent
-     * resource of the delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to get alert by id then use parent resource of scope. So in this example
-     * get alert by id call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return information related to a specific alert.
-     */
-    Alert getById(String scope, String alertId);
-
-    /**
-     * Change the state of an alert. If scope is a deleted resource then please use scope as parent resource of the
-     * delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to change state of this particular alert then use parent resource of scope.
-     * So in this example change state call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @param newState New state of the alert.
-     * @param comment reason of change alert state.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return an alert created in alert management service along with {@link Response}.
-     */
-    Response<Alert> changeStateWithResponse(String scope, String alertId, AlertState newState, Comments comment,
-        Context context);
-
-    /**
-     * Change the state of an alert. If scope is a deleted resource then please use scope as parent resource of the
-     * delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to change state of this particular alert then use parent resource of scope.
-     * So in this example change state call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @param newState New state of the alert.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return an alert created in alert management service.
-     */
-    Alert changeState(String scope, String alertId, AlertState newState);
-
-    /**
-     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
-     * (New/Acknowledged/Closed) and applied action rules for that particular alert. If scope is a deleted resource then
-     * please use scope as parent resource of the delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to get history of this particular alert then use parent resource of scope.
-     * So in this example get history call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
-     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert along with {@link Response}.
-     */
-    Response<AlertModification> getHistoryWithResponse(String scope, String alertId, Context context);
-
-    /**
-     * Get the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state changes
-     * (New/Acknowledged/Closed) and applied action rules for that particular alert. If scope is a deleted resource then
-     * please use scope as parent resource of the delete resource. For example if my alert id is
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/virtualMachines/vm1/providers/Microsoft.AlertsManagement/alerts/{alertId}'
-     * and 'vm1' is deleted then if you want to get history of this particular alert then use parent resource of scope.
-     * So in this example get history call will look like this:
-     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history'.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the history of an alert, which captures any monitor condition changes (Fired/Resolved), alert state
-     * changes (New/Acknowledged/Closed) and applied action rules for that particular alert.
-     */
-    AlertModification getHistory(String scope, String alertId);
-
-    /**
-     * Get a summarized count of your alerts grouped by various parameters (e.g. grouping by 'Severity' returns the
-     * count of alerts for each severity).
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param groupby This parameter allows the result set to be grouped by input fields. For example,
-     * groupby=severity,alertstate.
-     * @param includeSmartGroupsCount Include count of the SmartGroups as part of the summary. Default value is 'false'.
-     * @param targetResource Filter by target resource( which is full ARM ID) Default value is select all.
-     * @param targetResourceType Filter by target resource type. Default value is select all.
-     * @param targetResourceGroup Filter by target resource group name. Default value is select all.
-     * @param monitorService Filter by monitor service which generates the alert instance. Default value is select all.
-     * @param monitorCondition Filter by monitor condition which is either 'Fired' or 'Resolved'. Default value is to
-     * select all.
-     * @param severity Filter by severity. Default value is select all.
-     * @param alertState Filter by state of the alert instance. Default value is to select all.
-     * @param alertRule Filter by specific alert rule. Default value is to select all.
-     * @param timeRange Filter by time range by below listed values. Default value is 1 day.
-     * @param customTimeRange Filter by custom time range in the format &lt;start-time&gt;/&lt;end-time&gt; where time
-     * is in (ISO-8601 format)'. Permissible values is within 30 days from query time. Either timeRange or
-     * customTimeRange could be used but not both. Default is none.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a summarized count of your alerts grouped by various parameters (e.g along with {@link Response}.
-     */
-    Response<AlertsSummary> getSummaryWithResponse(String scope, AlertsSummaryGroupByFields groupby,
-        Boolean includeSmartGroupsCount, String targetResource, String targetResourceType, String targetResourceGroup,
-        MonitorService monitorService, MonitorCondition monitorCondition, Severity severity, AlertState alertState,
-        String alertRule, TimeRange timeRange, String customTimeRange, Context context);
-
-    /**
-     * Get a summarized count of your alerts grouped by various parameters (e.g. grouping by 'Severity' returns the
-     * count of alerts for each severity).
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param groupby This parameter allows the result set to be grouped by input fields. For example,
-     * groupby=severity,alertstate.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a summarized count of your alerts grouped by various parameters (e.g.
-     */
-    AlertsSummary getSummary(String scope, AlertsSummaryGroupByFields groupby);
-
-    /**
-     * Get the enrichments of an alert. It returns a collection of one object named default.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the enrichments of an alert as paginated response with {@link PagedIterable}.
-     */
-    PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId);
-
-    /**
-     * Get the enrichments of an alert. It returns a collection of one object named default.
-     * 
-     * @param scope scope here is resourceId for which alert is created.
-     * @param alertId Unique ID of an alert instance.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the enrichments of an alert as paginated response with {@link PagedIterable}.
-     */
-    PagedIterable<AlertEnrichmentResponse> getEnrichments(String scope, String alertId, Context context);
 }

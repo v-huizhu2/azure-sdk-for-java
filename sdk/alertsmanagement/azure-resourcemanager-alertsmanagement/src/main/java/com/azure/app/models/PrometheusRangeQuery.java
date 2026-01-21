@@ -19,11 +19,31 @@ import java.util.List;
  * Prometheus instant query enrichment object.
  */
 @Fluent
-public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
+public final class PrometheusRangeQuery extends AlertEnrichmentItem {
     /*
      * The enrichment type.
      */
     private Type type = Type.PROMETHEUS_RANGE_QUERY;
+
+    /*
+     * Link to Prometheus query API (Url format).
+     */
+    private String linkToApi;
+
+    /*
+     * An array of the azure monitor workspace resource ids.
+     */
+    private List<String> datasources;
+
+    /*
+     * Partial link to the Grafana explore API.
+     */
+    private String grafanaExplorePath;
+
+    /*
+     * The Prometheus expression query.
+     */
+    private String query;
 
     /*
      * The start evaluation date and time in ISO8601 format.
@@ -54,6 +74,86 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
     @Override
     public Type type() {
         return this.type;
+    }
+
+    /**
+     * Get the linkToApi property: Link to Prometheus query API (Url format).
+     * 
+     * @return the linkToApi value.
+     */
+    public String linkToApi() {
+        return this.linkToApi;
+    }
+
+    /**
+     * Set the linkToApi property: Link to Prometheus query API (Url format).
+     * 
+     * @param linkToApi the linkToApi value to set.
+     * @return the PrometheusRangeQuery object itself.
+     */
+    public PrometheusRangeQuery withLinkToApi(String linkToApi) {
+        this.linkToApi = linkToApi;
+        return this;
+    }
+
+    /**
+     * Get the datasources property: An array of the azure monitor workspace resource ids.
+     * 
+     * @return the datasources value.
+     */
+    public List<String> datasources() {
+        return this.datasources;
+    }
+
+    /**
+     * Set the datasources property: An array of the azure monitor workspace resource ids.
+     * 
+     * @param datasources the datasources value to set.
+     * @return the PrometheusRangeQuery object itself.
+     */
+    public PrometheusRangeQuery withDatasources(List<String> datasources) {
+        this.datasources = datasources;
+        return this;
+    }
+
+    /**
+     * Get the grafanaExplorePath property: Partial link to the Grafana explore API.
+     * 
+     * @return the grafanaExplorePath value.
+     */
+    public String grafanaExplorePath() {
+        return this.grafanaExplorePath;
+    }
+
+    /**
+     * Set the grafanaExplorePath property: Partial link to the Grafana explore API.
+     * 
+     * @param grafanaExplorePath the grafanaExplorePath value to set.
+     * @return the PrometheusRangeQuery object itself.
+     */
+    public PrometheusRangeQuery withGrafanaExplorePath(String grafanaExplorePath) {
+        this.grafanaExplorePath = grafanaExplorePath;
+        return this;
+    }
+
+    /**
+     * Get the query property: The Prometheus expression query.
+     * 
+     * @return the query value.
+     */
+    public String query() {
+        return this.query;
+    }
+
+    /**
+     * Set the query property: The Prometheus expression query.
+     * 
+     * @param query the query value to set.
+     * @return the PrometheusRangeQuery object itself.
+     */
+    public PrometheusRangeQuery withQuery(String query) {
+        this.query = query;
+        return this;
     }
 
     /**
@@ -120,42 +220,6 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
      * {@inheritDoc}
      */
     @Override
-    public PrometheusRangeQuery withLinkToApi(String linkToApi) {
-        super.withLinkToApi(linkToApi);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusRangeQuery withDatasources(List<String> datasources) {
-        super.withDatasources(datasources);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusRangeQuery withGrafanaExplorePath(String grafanaExplorePath) {
-        super.withGrafanaExplorePath(grafanaExplorePath);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrometheusRangeQuery withQuery(String query) {
-        super.withQuery(query);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public PrometheusRangeQuery withTitle(String title) {
         super.withTitle(title);
         return this;
@@ -195,6 +259,24 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
      */
     @Override
     public void validate() {
+        if (linkToApi() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property linkToApi in model PrometheusRangeQuery"));
+        }
+        if (datasources() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Missing required property datasources in model PrometheusRangeQuery"));
+        }
+        if (grafanaExplorePath() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Missing required property grafanaExplorePath in model PrometheusRangeQuery"));
+        }
+        if (query() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property query in model PrometheusRangeQuery"));
+        }
         if (start() == null) {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException("Missing required property start in model PrometheusRangeQuery"));
@@ -220,24 +302,6 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException("Missing required property status in model PrometheusRangeQuery"));
         }
-        if (linkToApi() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Missing required property linkToApi in model PrometheusRangeQuery"));
-        }
-        if (datasources() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Missing required property datasources in model PrometheusRangeQuery"));
-        }
-        if (grafanaExplorePath() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Missing required property grafanaExplorePath in model PrometheusRangeQuery"));
-        }
-        if (query() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Missing required property query in model PrometheusRangeQuery"));
-        }
     }
 
     private static final ClientLogger LOGGER = new ClientLogger(PrometheusRangeQuery.class);
@@ -251,11 +315,11 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
         jsonWriter.writeStringField("title", title());
         jsonWriter.writeStringField("description", description());
         jsonWriter.writeStringField("status", status() == null ? null : status().toString());
-        jsonWriter.writeStringField("linkToApi", linkToApi());
-        jsonWriter.writeArrayField("datasources", datasources(), (writer, element) -> writer.writeString(element));
-        jsonWriter.writeStringField("grafanaExplorePath", grafanaExplorePath());
-        jsonWriter.writeStringField("query", query());
         jsonWriter.writeStringField("errorMessage", errorMessage());
+        jsonWriter.writeStringField("linkToApi", this.linkToApi);
+        jsonWriter.writeArrayField("datasources", this.datasources, (writer, element) -> writer.writeString(element));
+        jsonWriter.writeStringField("grafanaExplorePath", this.grafanaExplorePath);
+        jsonWriter.writeStringField("query", this.query);
         jsonWriter.writeStringField("start",
             this.start == null ? null : DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(this.start));
         jsonWriter.writeStringField("end",
@@ -287,17 +351,17 @@ public final class PrometheusRangeQuery extends PrometheusEnrichmentItem {
                     deserializedPrometheusRangeQuery.withDescription(reader.getString());
                 } else if ("status".equals(fieldName)) {
                     deserializedPrometheusRangeQuery.withStatus(Status.fromString(reader.getString()));
-                } else if ("linkToApi".equals(fieldName)) {
-                    deserializedPrometheusRangeQuery.withLinkToApi(reader.getString());
-                } else if ("datasources".equals(fieldName)) {
-                    List<String> datasources = reader.readArray(reader1 -> reader1.getString());
-                    deserializedPrometheusRangeQuery.withDatasources(datasources);
-                } else if ("grafanaExplorePath".equals(fieldName)) {
-                    deserializedPrometheusRangeQuery.withGrafanaExplorePath(reader.getString());
-                } else if ("query".equals(fieldName)) {
-                    deserializedPrometheusRangeQuery.withQuery(reader.getString());
                 } else if ("errorMessage".equals(fieldName)) {
                     deserializedPrometheusRangeQuery.withErrorMessage(reader.getString());
+                } else if ("linkToApi".equals(fieldName)) {
+                    deserializedPrometheusRangeQuery.linkToApi = reader.getString();
+                } else if ("datasources".equals(fieldName)) {
+                    List<String> datasources = reader.readArray(reader1 -> reader1.getString());
+                    deserializedPrometheusRangeQuery.datasources = datasources;
+                } else if ("grafanaExplorePath".equals(fieldName)) {
+                    deserializedPrometheusRangeQuery.grafanaExplorePath = reader.getString();
+                } else if ("query".equals(fieldName)) {
+                    deserializedPrometheusRangeQuery.query = reader.getString();
                 } else if ("start".equals(fieldName)) {
                     deserializedPrometheusRangeQuery.start = reader
                         .getNullable(nonNullReader -> CoreUtils.parseBestOffsetDateTime(nonNullReader.getString()));

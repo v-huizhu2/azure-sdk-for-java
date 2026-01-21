@@ -5,6 +5,7 @@
 package com.azure.app.models;
 
 import com.azure.app.fluent.models.AlertInner;
+import com.azure.core.management.SystemData;
 
 /**
  * An immutable client-side representation of Alert.
@@ -37,6 +38,13 @@ public interface Alert {
      * @return the properties value.
      */
     AlertProperties properties();
+
+    /**
+     * Gets the systemData property: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+     * 
+     * @return the systemData value.
+     */
+    SystemData systemData();
 
     /**
      * Gets the inner com.azure.app.fluent.models.AlertInner object.

@@ -7,6 +7,7 @@ package com.azure.app.fluent.models;
 import com.azure.app.models.AlertProperties;
 import com.azure.core.annotation.Fluent;
 import com.azure.core.management.ProxyResource;
+import com.azure.core.management.SystemData;
 import com.azure.json.JsonReader;
 import com.azure.json.JsonToken;
 import com.azure.json.JsonWriter;
@@ -21,6 +22,11 @@ public final class AlertInner extends ProxyResource {
      * Alert property bag
      */
     private AlertProperties properties;
+
+    /*
+     * Azure Resource Manager metadata containing createdBy and modifiedBy information.
+     */
+    private SystemData systemData;
 
     /*
      * The type of the resource.
@@ -61,6 +67,15 @@ public final class AlertInner extends ProxyResource {
     public AlertInner withProperties(AlertProperties properties) {
         this.properties = properties;
         return this;
+    }
+
+    /**
+     * Get the systemData property: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+     * 
+     * @return the systemData value.
+     */
+    public SystemData systemData() {
+        return this.systemData;
     }
 
     /**
@@ -138,6 +153,8 @@ public final class AlertInner extends ProxyResource {
                     deserializedAlertInner.type = reader.getString();
                 } else if ("properties".equals(fieldName)) {
                     deserializedAlertInner.properties = AlertProperties.fromJson(reader);
+                } else if ("systemData".equals(fieldName)) {
+                    deserializedAlertInner.systemData = SystemData.fromJson(reader);
                 } else {
                     reader.skipChildren();
                 }
