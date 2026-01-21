@@ -24,6 +24,11 @@ public final class PrometheusRuleGroupResourceCollection
      */
     private List<PrometheusRuleGroupResourceInner> value;
 
+    /*
+     * The nextLink property.
+     */
+    private String nextLink;
+
     /**
      * Creates an instance of PrometheusRuleGroupResourceCollection class.
      */
@@ -51,6 +56,26 @@ public final class PrometheusRuleGroupResourceCollection
     }
 
     /**
+     * Get the nextLink property: The nextLink property.
+     * 
+     * @return the nextLink value.
+     */
+    public String nextLink() {
+        return this.nextLink;
+    }
+
+    /**
+     * Set the nextLink property: The nextLink property.
+     * 
+     * @param nextLink the nextLink value to set.
+     * @return the PrometheusRuleGroupResourceCollection object itself.
+     */
+    public PrometheusRuleGroupResourceCollection withNextLink(String nextLink) {
+        this.nextLink = nextLink;
+        return this;
+    }
+
+    /**
      * Validates the instance.
      * 
      * @throws IllegalArgumentException thrown if the instance is not valid.
@@ -68,6 +93,7 @@ public final class PrometheusRuleGroupResourceCollection
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
         jsonWriter.writeArrayField("value", this.value, (writer, element) -> writer.writeJson(element));
+        jsonWriter.writeStringField("nextLink", this.nextLink);
         return jsonWriter.writeEndObject();
     }
 
@@ -91,6 +117,8 @@ public final class PrometheusRuleGroupResourceCollection
                     List<PrometheusRuleGroupResourceInner> value
                         = reader.readArray(reader1 -> PrometheusRuleGroupResourceInner.fromJson(reader1));
                     deserializedPrometheusRuleGroupResourceCollection.value = value;
+                } else if ("nextLink".equals(fieldName)) {
+                    deserializedPrometheusRuleGroupResourceCollection.nextLink = reader.getString();
                 } else {
                     reader.skipChildren();
                 }
