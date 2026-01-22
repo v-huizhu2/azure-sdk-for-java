@@ -68,23 +68,25 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Mono<Response<AlertRuleRecommendationsListResponse>> listByResource(@HostParam("$host") String endpoint,
-            @PathParam(value = "resourceUri", encoded = true) String resourceUri,
-            @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+            @QueryParam("api-version") String apiVersion,
+            @PathParam(value = "resourceUri", encoded = true) String resourceUri, @HeaderParam("Accept") String accept,
+            Context context);
 
         @Headers({ "Content-Type: application/json" })
         @Get("/{resourceUri}/providers/Microsoft.AlertsManagement/alertRuleRecommendations")
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Response<AlertRuleRecommendationsListResponse> listByResourceSync(@HostParam("$host") String endpoint,
-            @PathParam(value = "resourceUri", encoded = true) String resourceUri,
-            @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+            @QueryParam("api-version") String apiVersion,
+            @PathParam(value = "resourceUri", encoded = true) String resourceUri, @HeaderParam("Accept") String accept,
+            Context context);
 
         @Headers({ "Content-Type: application/json" })
         @Get("/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alertRuleRecommendations")
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Mono<Response<AlertRuleRecommendationsListResponse>> list(@HostParam("$host") String endpoint,
-            @PathParam("subscriptionId") String subscriptionId, @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("targetType") String targetType, @HeaderParam("Accept") String accept, Context context);
 
         @Headers({ "Content-Type: application/json" })
@@ -92,7 +94,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Response<AlertRuleRecommendationsListResponse> listSync(@HostParam("$host") String endpoint,
-            @PathParam("subscriptionId") String subscriptionId, @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("targetType") String targetType, @HeaderParam("Accept") String accept, Context context);
 
         @Headers({ "Content-Type: application/json" })
@@ -131,7 +133,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -150,8 +152,8 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         return FluxUtil
-            .withContext(context -> service.listByResource(this.client.getEndpoint(), resourceUri,
-                this.client.getApiVersion(), accept, context))
+            .withContext(context -> service.listByResource(this.client.getEndpoint(), this.client.getApiVersion(),
+                resourceUri, accept, context))
             .<PagedResponse<AlertRuleRecommendationResourceInner>>map(res -> new PagedResponseBase<>(res.getRequest(),
                 res.getStatusCode(), res.getHeaders(), res.getValue().value(), res.getValue().nextLink(), null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
@@ -160,7 +162,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -175,7 +177,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -194,7 +196,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         Response<AlertRuleRecommendationsListResponse> res = service.listByResourceSync(this.client.getEndpoint(),
-            resourceUri, this.client.getApiVersion(), accept, Context.NONE);
+            this.client.getApiVersion(), resourceUri, accept, Context.NONE);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }
@@ -202,7 +204,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -223,7 +225,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         Response<AlertRuleRecommendationsListResponse> res = service.listByResourceSync(this.client.getEndpoint(),
-            resourceUri, this.client.getApiVersion(), accept, context);
+            this.client.getApiVersion(), resourceUri, accept, context);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }
@@ -231,7 +233,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -246,7 +248,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
     /**
      * Retrieve alert rule recommendations for a resource.
      * 
-     * @param resourceUri The identifier of the resource.
+     * @param resourceUri The fully qualified Azure Resource manager identifier of the resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -284,8 +286,8 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         return FluxUtil
-            .withContext(context -> service.list(this.client.getEndpoint(), this.client.getSubscriptionId(),
-                this.client.getApiVersion(), targetType, accept, context))
+            .withContext(context -> service.list(this.client.getEndpoint(), this.client.getApiVersion(),
+                this.client.getSubscriptionId(), targetType, accept, context))
             .<PagedResponse<AlertRuleRecommendationResourceInner>>map(res -> new PagedResponseBase<>(res.getRequest(),
                 res.getStatusCode(), res.getHeaders(), res.getValue().value(), res.getValue().nextLink(), null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
@@ -333,7 +335,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         Response<AlertRuleRecommendationsListResponse> res = service.listSync(this.client.getEndpoint(),
-            this.client.getSubscriptionId(), this.client.getApiVersion(), targetType, accept, Context.NONE);
+            this.client.getApiVersion(), this.client.getSubscriptionId(), targetType, accept, Context.NONE);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }
@@ -366,7 +368,7 @@ public final class AlertRuleRecommendationsClientImpl implements AlertRuleRecomm
         }
         final String accept = "application/json";
         Response<AlertRuleRecommendationsListResponse> res = service.listSync(this.client.getEndpoint(),
-            this.client.getSubscriptionId(), this.client.getApiVersion(), targetType, accept, context);
+            this.client.getApiVersion(), this.client.getSubscriptionId(), targetType, accept, context);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }

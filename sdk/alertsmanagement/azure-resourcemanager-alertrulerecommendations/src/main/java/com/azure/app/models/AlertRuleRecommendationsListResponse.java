@@ -21,12 +21,12 @@ import java.util.List;
 public final class AlertRuleRecommendationsListResponse
     implements JsonSerializable<AlertRuleRecommendationsListResponse> {
     /*
-     * the values for the alert rule recommendations.
+     * The AlertRuleRecommendationResource items on this page
      */
     private List<AlertRuleRecommendationResourceInner> value;
 
     /*
-     * URL to fetch the next set of recommendations.
+     * The link to the next page of items
      */
     private String nextLink;
 
@@ -37,7 +37,7 @@ public final class AlertRuleRecommendationsListResponse
     }
 
     /**
-     * Get the value property: the values for the alert rule recommendations.
+     * Get the value property: The AlertRuleRecommendationResource items on this page.
      * 
      * @return the value value.
      */
@@ -46,7 +46,7 @@ public final class AlertRuleRecommendationsListResponse
     }
 
     /**
-     * Set the value property: the values for the alert rule recommendations.
+     * Set the value property: The AlertRuleRecommendationResource items on this page.
      * 
      * @param value the value value to set.
      * @return the AlertRuleRecommendationsListResponse object itself.
@@ -57,7 +57,7 @@ public final class AlertRuleRecommendationsListResponse
     }
 
     /**
-     * Get the nextLink property: URL to fetch the next set of recommendations.
+     * Get the nextLink property: The link to the next page of items.
      * 
      * @return the nextLink value.
      */
@@ -66,7 +66,7 @@ public final class AlertRuleRecommendationsListResponse
     }
 
     /**
-     * Set the nextLink property: URL to fetch the next set of recommendations.
+     * Set the nextLink property: The link to the next page of items.
      * 
      * @param nextLink the nextLink value to set.
      * @return the AlertRuleRecommendationsListResponse object itself.
