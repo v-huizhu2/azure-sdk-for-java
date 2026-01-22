@@ -14,116 +14,6 @@ import com.azure.core.util.Context;
  */
 public interface TenantActivityLogAlerts {
     /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
-     */
-    Response<TenantActivityLogAlertResource> createOrUpdateWithResponse(String managementGroupName,
-        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context);
-
-    /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource.
-     */
-    TenantActivityLogAlertResource createOrUpdate(String managementGroupName, String alertRuleName,
-        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule);
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule along with {@link Response}.
-     */
-    Response<TenantActivityLogAlertResource> getWithResponse(String managementGroupName, String alertRuleName,
-        Context context);
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule.
-     */
-    TenantActivityLogAlertResource get(String managementGroupName, String alertRuleName);
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the {@link Response}.
-     */
-    Response<Void> deleteByResourceGroupWithResponse(String managementGroupName, String alertRuleName, Context context);
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     */
-    void deleteByResourceGroup(String managementGroupName, String alertRuleName);
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
-     */
-    Response<TenantActivityLogAlertResource> updateWithResponse(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context);
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource.
-     */
-    TenantActivityLogAlertResource update(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch);
-
-    /**
      * Get a list of all Tenant Activity Log Alert rules in the tenant.
      * 
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -148,7 +38,7 @@ public interface TenantActivityLogAlerts {
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -160,7 +50,7 @@ public interface TenantActivityLogAlerts {
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -169,4 +59,114 @@ public interface TenantActivityLogAlerts {
      * {@link PagedIterable}.
      */
     PagedIterable<TenantActivityLogAlertResource> listByManagementGroup(String managementGroupName, Context context);
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule along with {@link Response}.
+     */
+    Response<TenantActivityLogAlertResource> getWithResponse(String managementGroupName, String alertRuleName,
+        Context context);
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule.
+     */
+    TenantActivityLogAlertResource get(String managementGroupName, String alertRuleName);
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
+     */
+    Response<TenantActivityLogAlertResource> createOrUpdateWithResponse(String managementGroupName,
+        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context);
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource.
+     */
+    TenantActivityLogAlertResource createOrUpdate(String managementGroupName, String alertRuleName,
+        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule);
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
+     */
+    Response<TenantActivityLogAlertResource> updateWithResponse(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context);
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource.
+     */
+    TenantActivityLogAlertResource update(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch);
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the {@link Response}.
+     */
+    Response<Void> deleteByResourceGroupWithResponse(String managementGroupName, String alertRuleName, Context context);
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    void deleteByResourceGroup(String managementGroupName, String alertRuleName);
 }

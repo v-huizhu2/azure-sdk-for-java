@@ -28,82 +28,6 @@ public final class TenantActivityLogAlertsImpl implements TenantActivityLogAlert
         this.serviceManager = serviceManager;
     }
 
-    public Response<TenantActivityLogAlertResource> createOrUpdateWithResponse(String managementGroupName,
-        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context) {
-        Response<TenantActivityLogAlertResourceInner> inner = this.serviceClient()
-            .createOrUpdateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRule, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public TenantActivityLogAlertResource createOrUpdate(String managementGroupName, String alertRuleName,
-        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
-        TenantActivityLogAlertResourceInner inner
-            = this.serviceClient().createOrUpdate(managementGroupName, alertRuleName, tenantActivityLogAlertRule);
-        if (inner != null) {
-            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
-    public Response<TenantActivityLogAlertResource> getWithResponse(String managementGroupName, String alertRuleName,
-        Context context) {
-        Response<TenantActivityLogAlertResourceInner> inner
-            = this.serviceClient().getWithResponse(managementGroupName, alertRuleName, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public TenantActivityLogAlertResource get(String managementGroupName, String alertRuleName) {
-        TenantActivityLogAlertResourceInner inner = this.serviceClient().get(managementGroupName, alertRuleName);
-        if (inner != null) {
-            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
-    public Response<Void> deleteByResourceGroupWithResponse(String managementGroupName, String alertRuleName,
-        Context context) {
-        return this.serviceClient().deleteWithResponse(managementGroupName, alertRuleName, context);
-    }
-
-    public void deleteByResourceGroup(String managementGroupName, String alertRuleName) {
-        this.serviceClient().delete(managementGroupName, alertRuleName);
-    }
-
-    public Response<TenantActivityLogAlertResource> updateWithResponse(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context) {
-        Response<TenantActivityLogAlertResourceInner> inner = this.serviceClient()
-            .updateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch, context);
-        if (inner != null) {
-            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
-                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
-        } else {
-            return null;
-        }
-    }
-
-    public TenantActivityLogAlertResource update(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
-        TenantActivityLogAlertResourceInner inner
-            = this.serviceClient().update(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch);
-        if (inner != null) {
-            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
-        } else {
-            return null;
-        }
-    }
-
     public PagedIterable<TenantActivityLogAlertResource> listByTenant() {
         PagedIterable<TenantActivityLogAlertResourceInner> inner = this.serviceClient().listByTenant();
         return ResourceManagerUtils.mapPage(inner,
@@ -129,6 +53,82 @@ public final class TenantActivityLogAlertsImpl implements TenantActivityLogAlert
             = this.serviceClient().listByManagementGroup(managementGroupName, context);
         return ResourceManagerUtils.mapPage(inner,
             inner1 -> new TenantActivityLogAlertResourceImpl(inner1, this.manager()));
+    }
+
+    public Response<TenantActivityLogAlertResource> getWithResponse(String managementGroupName, String alertRuleName,
+        Context context) {
+        Response<TenantActivityLogAlertResourceInner> inner
+            = this.serviceClient().getWithResponse(managementGroupName, alertRuleName, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public TenantActivityLogAlertResource get(String managementGroupName, String alertRuleName) {
+        TenantActivityLogAlertResourceInner inner = this.serviceClient().get(managementGroupName, alertRuleName);
+        if (inner != null) {
+            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<TenantActivityLogAlertResource> createOrUpdateWithResponse(String managementGroupName,
+        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context) {
+        Response<TenantActivityLogAlertResourceInner> inner = this.serviceClient()
+            .createOrUpdateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRule, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public TenantActivityLogAlertResource createOrUpdate(String managementGroupName, String alertRuleName,
+        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
+        TenantActivityLogAlertResourceInner inner
+            = this.serviceClient().createOrUpdate(managementGroupName, alertRuleName, tenantActivityLogAlertRule);
+        if (inner != null) {
+            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<TenantActivityLogAlertResource> updateWithResponse(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context) {
+        Response<TenantActivityLogAlertResourceInner> inner = this.serviceClient()
+            .updateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch, context);
+        if (inner != null) {
+            return new SimpleResponse<>(inner.getRequest(), inner.getStatusCode(), inner.getHeaders(),
+                new TenantActivityLogAlertResourceImpl(inner.getValue(), this.manager()));
+        } else {
+            return null;
+        }
+    }
+
+    public TenantActivityLogAlertResource update(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
+        TenantActivityLogAlertResourceInner inner
+            = this.serviceClient().update(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch);
+        if (inner != null) {
+            return new TenantActivityLogAlertResourceImpl(inner, this.manager());
+        } else {
+            return null;
+        }
+    }
+
+    public Response<Void> deleteByResourceGroupWithResponse(String managementGroupName, String alertRuleName,
+        Context context) {
+        return this.serviceClient().deleteWithResponse(managementGroupName, alertRuleName, context);
+    }
+
+    public void deleteByResourceGroup(String managementGroupName, String alertRuleName) {
+        this.serviceClient().delete(managementGroupName, alertRuleName);
     }
 
     private TenantActivityLogAlertsClient serviceClient() {

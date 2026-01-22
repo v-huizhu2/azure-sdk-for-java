@@ -6,6 +6,7 @@ package com.azure.app.models;
 
 import com.azure.app.fluent.models.TenantActivityLogAlertResourceInner;
 import com.azure.core.annotation.Fluent;
+import com.azure.core.util.logging.ClientLogger;
 import com.azure.json.JsonReader;
 import com.azure.json.JsonSerializable;
 import com.azure.json.JsonToken;
@@ -19,12 +20,12 @@ import java.util.List;
 @Fluent
 public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRuleList> {
     /*
-     * The list of Tenant Activity Log Alert rules.
+     * The TenantActivityLogAlertResource items on this page
      */
     private List<TenantActivityLogAlertResourceInner> value;
 
     /*
-     * Provides the link to retrieve the next set of elements.
+     * The link to the next page of items
      */
     private String nextLink;
 
@@ -35,7 +36,7 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
     }
 
     /**
-     * Get the value property: The list of Tenant Activity Log Alert rules.
+     * Get the value property: The TenantActivityLogAlertResource items on this page.
      * 
      * @return the value value.
      */
@@ -44,7 +45,7 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
     }
 
     /**
-     * Set the value property: The list of Tenant Activity Log Alert rules.
+     * Set the value property: The TenantActivityLogAlertResource items on this page.
      * 
      * @param value the value value to set.
      * @return the TenantAlertRuleList object itself.
@@ -55,7 +56,7 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
     }
 
     /**
-     * Get the nextLink property: Provides the link to retrieve the next set of elements.
+     * Get the nextLink property: The link to the next page of items.
      * 
      * @return the nextLink value.
      */
@@ -64,7 +65,7 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
     }
 
     /**
-     * Set the nextLink property: Provides the link to retrieve the next set of elements.
+     * Set the nextLink property: The link to the next page of items.
      * 
      * @param nextLink the nextLink value to set.
      * @return the TenantAlertRuleList object itself.
@@ -80,10 +81,15 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (value() != null) {
+        if (value() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Missing required property value in model TenantAlertRuleList"));
+        } else {
             value().forEach(e -> e.validate());
         }
     }
+
+    private static final ClientLogger LOGGER = new ClientLogger(TenantAlertRuleList.class);
 
     /**
      * {@inheritDoc}
@@ -102,6 +108,7 @@ public final class TenantAlertRuleList implements JsonSerializable<TenantAlertRu
      * @param jsonReader The JsonReader being read.
      * @return An instance of TenantAlertRuleList if the JsonReader was pointing to an instance of it, or null if it was
      * pointing to JSON null.
+     * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the TenantAlertRuleList.
      */
     public static TenantAlertRuleList fromJson(JsonReader jsonReader) throws IOException {

@@ -71,82 +71,6 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         name = "TenantLevelActivityLogAlertRulesInAlertsManagementResourceProviderTenantActivityLogAlerts")
     public interface TenantActivityLogAlertsService {
         @Headers({ "Content-Type: application/json" })
-        @Put("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200, 201 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<TenantActivityLogAlertResourceInner>> createOrUpdate(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @BodyParam("application/json") TenantActivityLogAlertResourceInner tenantActivityLogAlertRule,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Put("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200, 201 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Response<TenantActivityLogAlertResourceInner> createOrUpdateSync(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @BodyParam("application/json") TenantActivityLogAlertResourceInner tenantActivityLogAlertRule,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Get("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<TenantActivityLogAlertResourceInner>> get(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Get("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Response<TenantActivityLogAlertResourceInner> getSync(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Delete("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200, 204 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Void>> delete(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Delete("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200, 204 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Response<Void> deleteSync(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Patch("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<TenantActivityLogAlertResourceInner>> update(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @BodyParam("application/json") TenantAlertRulePatchObject tenantActivityLogAlertRulePatch,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
-        @Patch("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
-        @ExpectedResponses({ 200 })
-        @UnexpectedResponseExceptionType(ManagementException.class)
-        Response<TenantActivityLogAlertResourceInner> updateSync(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName,
-            @PathParam("alertRuleName") String alertRuleName, @QueryParam("api-version") String apiVersion,
-            @BodyParam("application/json") TenantAlertRulePatchObject tenantActivityLogAlertRulePatch,
-            @HeaderParam("Accept") String accept, Context context);
-
-        @Headers({ "Content-Type: application/json" })
         @Get("/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts")
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
@@ -165,7 +89,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Mono<Response<TenantAlertRuleList>> listByManagementGroup(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName, @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
             @HeaderParam("Accept") String accept, Context context);
 
         @Headers({ "Content-Type: application/json" })
@@ -173,8 +97,80 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         @ExpectedResponses({ 200 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Response<TenantAlertRuleList> listByManagementGroupSync(@HostParam("$host") String endpoint,
-            @PathParam("managementGroupName") String managementGroupName, @QueryParam("api-version") String apiVersion,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
             @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Get("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<TenantActivityLogAlertResourceInner>> get(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName, @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Get("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Response<TenantActivityLogAlertResourceInner> getSync(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName, @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Put("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200, 201 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<TenantActivityLogAlertResourceInner>> createOrUpdate(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName,
+            @BodyParam("application/json") TenantActivityLogAlertResourceInner tenantActivityLogAlertRule,
+            @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Put("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200, 201 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Response<TenantActivityLogAlertResourceInner> createOrUpdateSync(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName,
+            @BodyParam("application/json") TenantActivityLogAlertResourceInner tenantActivityLogAlertRule,
+            @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Patch("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<TenantActivityLogAlertResourceInner>> update(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName,
+            @BodyParam("application/json") TenantAlertRulePatchObject tenantActivityLogAlertRulePatch,
+            @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Patch("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Response<TenantActivityLogAlertResourceInner> updateSync(@HostParam("$host") String endpoint,
+            @QueryParam("api-version") String apiVersion, @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName,
+            @BodyParam("application/json") TenantAlertRulePatchObject tenantActivityLogAlertRulePatch,
+            @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Delete("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200, 204 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<Void>> delete(@HostParam("$host") String endpoint, @QueryParam("api-version") String apiVersion,
+            @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName, @HeaderParam("Accept") String accept, Context context);
+
+        @Headers({ "Content-Type: application/json" })
+        @Delete("/providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.AlertsManagement/tenantActivityLogAlerts/{alertRuleName}")
+        @ExpectedResponses({ 200, 204 })
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Response<Void> deleteSync(@HostParam("$host") String endpoint, @QueryParam("api-version") String apiVersion,
+            @PathParam("managementGroupName") String managementGroupName,
+            @PathParam("alertRuleName") String alertRuleName, @HeaderParam("Accept") String accept, Context context);
 
         @Headers({ "Content-Type: application/json" })
         @Get("{nextLink}")
@@ -207,425 +203,6 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         Response<TenantAlertRuleList> listByManagementGroupNextSync(
             @PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint,
             @HeaderParam("Accept") String accept, Context context);
-    }
-
-    /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response} on successful completion of
-     * {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<TenantActivityLogAlertResourceInner>> createOrUpdateWithResponseAsync(
-        String managementGroupName, String alertRuleName,
-        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
-        if (this.client.getEndpoint() == null) {
-            return Mono.error(
-                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        if (tenantActivityLogAlertRule == null) {
-            return Mono.error(
-                new IllegalArgumentException("Parameter tenantActivityLogAlertRule is required and cannot be null."));
-        } else {
-            tenantActivityLogAlertRule.validate();
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(context -> service.createOrUpdate(this.client.getEndpoint(), managementGroupName,
-                alertRuleName, this.client.getApiVersion(), tenantActivityLogAlertRule, accept, context))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource on successful completion of {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<TenantActivityLogAlertResourceInner> createOrUpdateAsync(String managementGroupName,
-        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
-        return createOrUpdateWithResponseAsync(managementGroupName, alertRuleName, tenantActivityLogAlertRule)
-            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
-    }
-
-    /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<TenantActivityLogAlertResourceInner> createOrUpdateWithResponse(String managementGroupName,
-        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context) {
-        if (this.client.getEndpoint() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        if (tenantActivityLogAlertRule == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter tenantActivityLogAlertRule is required and cannot be null."));
-        } else {
-            tenantActivityLogAlertRule.validate();
-        }
-        final String accept = "application/json";
-        return service.createOrUpdateSync(this.client.getEndpoint(), managementGroupName, alertRuleName,
-            this.client.getApiVersion(), tenantActivityLogAlertRule, accept, context);
-    }
-
-    /**
-     * Create a new Tenant Activity Log Alert rule or update an existing one.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public TenantActivityLogAlertResourceInner createOrUpdate(String managementGroupName, String alertRuleName,
-        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
-        return createOrUpdateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRule, Context.NONE)
-            .getValue();
-    }
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule along with {@link Response} on successful completion of {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<TenantActivityLogAlertResourceInner>> getWithResponseAsync(String managementGroupName,
-        String alertRuleName) {
-        if (this.client.getEndpoint() == null) {
-            return Mono.error(
-                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(context -> service.get(this.client.getEndpoint(), managementGroupName, alertRuleName,
-                this.client.getApiVersion(), accept, context))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule on successful completion of {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<TenantActivityLogAlertResourceInner> getAsync(String managementGroupName, String alertRuleName) {
-        return getWithResponseAsync(managementGroupName, alertRuleName)
-            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
-    }
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule along with {@link Response}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<TenantActivityLogAlertResourceInner> getWithResponse(String managementGroupName,
-        String alertRuleName, Context context) {
-        if (this.client.getEndpoint() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return service.getSync(this.client.getEndpoint(), managementGroupName, alertRuleName,
-            this.client.getApiVersion(), accept, context);
-    }
-
-    /**
-     * Get Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return tenant Activity Log Alert rule.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public TenantActivityLogAlertResourceInner get(String managementGroupName, String alertRuleName) {
-        return getWithResponse(managementGroupName, alertRuleName, Context.NONE).getValue();
-    }
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the {@link Response} on successful completion of {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Void>> deleteWithResponseAsync(String managementGroupName, String alertRuleName) {
-        if (this.client.getEndpoint() == null) {
-            return Mono.error(
-                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(context -> service.delete(this.client.getEndpoint(), managementGroupName, alertRuleName,
-                this.client.getApiVersion(), accept, context))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return A {@link Mono} that completes when a successful response is received.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Void> deleteAsync(String managementGroupName, String alertRuleName) {
-        return deleteWithResponseAsync(managementGroupName, alertRuleName).flatMap(ignored -> Mono.empty());
-    }
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the {@link Response}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<Void> deleteWithResponse(String managementGroupName, String alertRuleName, Context context) {
-        if (this.client.getEndpoint() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return service.deleteSync(this.client.getEndpoint(), managementGroupName, alertRuleName,
-            this.client.getApiVersion(), accept, context);
-    }
-
-    /**
-     * Delete a Tenant Activity Log Alert rule.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public void delete(String managementGroupName, String alertRuleName) {
-        deleteWithResponse(managementGroupName, alertRuleName, Context.NONE);
-    }
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response} on successful completion of
-     * {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<TenantActivityLogAlertResourceInner>> updateWithResponseAsync(String managementGroupName,
-        String alertRuleName, TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
-        if (this.client.getEndpoint() == null) {
-            return Mono.error(
-                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        if (tenantActivityLogAlertRulePatch == null) {
-            return Mono.error(new IllegalArgumentException(
-                "Parameter tenantActivityLogAlertRulePatch is required and cannot be null."));
-        } else {
-            tenantActivityLogAlertRulePatch.validate();
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(context -> service.update(this.client.getEndpoint(), managementGroupName, alertRuleName,
-                this.client.getApiVersion(), tenantActivityLogAlertRulePatch, accept, context))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource on successful completion of {@link Mono}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<TenantActivityLogAlertResourceInner> updateAsync(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
-        return updateWithResponseAsync(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch)
-            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
-    }
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<TenantActivityLogAlertResourceInner> updateWithResponse(String managementGroupName,
-        String alertRuleName, TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context) {
-        if (this.client.getEndpoint() == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        if (managementGroupName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
-        }
-        if (alertRuleName == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
-        }
-        if (tenantActivityLogAlertRulePatch == null) {
-            throw LOGGER.atError()
-                .log(new IllegalArgumentException(
-                    "Parameter tenantActivityLogAlertRulePatch is required and cannot be null."));
-        } else {
-            tenantActivityLogAlertRulePatch.validate();
-        }
-        final String accept = "application/json";
-        return service.updateSync(this.client.getEndpoint(), managementGroupName, alertRuleName,
-            this.client.getApiVersion(), tenantActivityLogAlertRulePatch, accept, context);
-    }
-
-    /**
-     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
-     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
-     * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
-     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
-     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a Tenant Activity Log Alert rule resource.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    public TenantActivityLogAlertResourceInner update(String managementGroupName, String alertRuleName,
-        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
-        return updateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch, Context.NONE)
-            .getValue();
     }
 
     /**
@@ -739,7 +316,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -759,8 +336,8 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         }
         final String accept = "application/json";
         return FluxUtil
-            .withContext(context -> service.listByManagementGroup(this.client.getEndpoint(), managementGroupName,
-                this.client.getApiVersion(), accept, context))
+            .withContext(context -> service.listByManagementGroup(this.client.getEndpoint(),
+                this.client.getApiVersion(), managementGroupName, accept, context))
             .<PagedResponse<TenantActivityLogAlertResourceInner>>map(res -> new PagedResponseBase<>(res.getRequest(),
                 res.getStatusCode(), res.getHeaders(), res.getValue().value(), res.getValue().nextLink(), null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
@@ -769,7 +346,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -785,7 +362,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -805,7 +382,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         }
         final String accept = "application/json";
         Response<TenantAlertRuleList> res = service.listByManagementGroupSync(this.client.getEndpoint(),
-            managementGroupName, this.client.getApiVersion(), accept, Context.NONE);
+            this.client.getApiVersion(), managementGroupName, accept, Context.NONE);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }
@@ -813,7 +390,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -834,7 +411,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         }
         final String accept = "application/json";
         Response<TenantAlertRuleList> res = service.listByManagementGroupSync(this.client.getEndpoint(),
-            managementGroupName, this.client.getApiVersion(), accept, context);
+            this.client.getApiVersion(), managementGroupName, accept, context);
         return new PagedResponseBase<>(res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(),
             res.getValue().nextLink(), null);
     }
@@ -842,7 +419,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -858,7 +435,7 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
     /**
      * Get a list of all Tenant Activity Log Alert rules in a management group.
      * 
-     * @param managementGroupName The name of the management group. The name is case insensitive.
+     * @param managementGroupName The management group ID.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -871,6 +448,425 @@ public final class TenantActivityLogAlertsClientImpl implements TenantActivityLo
         Context context) {
         return new PagedIterable<>(() -> listByManagementGroupSinglePage(managementGroupName, context),
             nextLink -> listByManagementGroupNextSinglePage(nextLink, context));
+    }
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule along with {@link Response} on successful completion of {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<Response<TenantActivityLogAlertResourceInner>> getWithResponseAsync(String managementGroupName,
+        String alertRuleName) {
+        if (this.client.getEndpoint() == null) {
+            return Mono.error(
+                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.get(this.client.getEndpoint(), this.client.getApiVersion(),
+                managementGroupName, alertRuleName, accept, context))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule on successful completion of {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<TenantActivityLogAlertResourceInner> getAsync(String managementGroupName, String alertRuleName) {
+        return getWithResponseAsync(managementGroupName, alertRuleName)
+            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
+    }
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<TenantActivityLogAlertResourceInner> getWithResponse(String managementGroupName,
+        String alertRuleName, Context context) {
+        if (this.client.getEndpoint() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        return service.getSync(this.client.getEndpoint(), this.client.getApiVersion(), managementGroupName,
+            alertRuleName, accept, context);
+    }
+
+    /**
+     * Get Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return tenant Activity Log Alert rule.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public TenantActivityLogAlertResourceInner get(String managementGroupName, String alertRuleName) {
+        return getWithResponse(managementGroupName, alertRuleName, Context.NONE).getValue();
+    }
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response} on successful completion of
+     * {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<Response<TenantActivityLogAlertResourceInner>> createOrUpdateWithResponseAsync(
+        String managementGroupName, String alertRuleName,
+        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
+        if (this.client.getEndpoint() == null) {
+            return Mono.error(
+                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        if (tenantActivityLogAlertRule == null) {
+            return Mono.error(
+                new IllegalArgumentException("Parameter tenantActivityLogAlertRule is required and cannot be null."));
+        } else {
+            tenantActivityLogAlertRule.validate();
+        }
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.createOrUpdate(this.client.getEndpoint(), this.client.getApiVersion(),
+                managementGroupName, alertRuleName, tenantActivityLogAlertRule, accept, context))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource on successful completion of {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<TenantActivityLogAlertResourceInner> createOrUpdateAsync(String managementGroupName,
+        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
+        return createOrUpdateWithResponseAsync(managementGroupName, alertRuleName, tenantActivityLogAlertRule)
+            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
+    }
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<TenantActivityLogAlertResourceInner> createOrUpdateWithResponse(String managementGroupName,
+        String alertRuleName, TenantActivityLogAlertResourceInner tenantActivityLogAlertRule, Context context) {
+        if (this.client.getEndpoint() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        if (tenantActivityLogAlertRule == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter tenantActivityLogAlertRule is required and cannot be null."));
+        } else {
+            tenantActivityLogAlertRule.validate();
+        }
+        final String accept = "application/json";
+        return service.createOrUpdateSync(this.client.getEndpoint(), this.client.getApiVersion(), managementGroupName,
+            alertRuleName, tenantActivityLogAlertRule, accept, context);
+    }
+
+    /**
+     * Create a new Tenant Activity Log Alert rule or update an existing one.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRule The Tenant Activity Log Alert rule to create or use for the update.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public TenantActivityLogAlertResourceInner createOrUpdate(String managementGroupName, String alertRuleName,
+        TenantActivityLogAlertResourceInner tenantActivityLogAlertRule) {
+        return createOrUpdateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRule, Context.NONE)
+            .getValue();
+    }
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response} on successful completion of
+     * {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<Response<TenantActivityLogAlertResourceInner>> updateWithResponseAsync(String managementGroupName,
+        String alertRuleName, TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
+        if (this.client.getEndpoint() == null) {
+            return Mono.error(
+                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        if (tenantActivityLogAlertRulePatch == null) {
+            return Mono.error(new IllegalArgumentException(
+                "Parameter tenantActivityLogAlertRulePatch is required and cannot be null."));
+        } else {
+            tenantActivityLogAlertRulePatch.validate();
+        }
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.update(this.client.getEndpoint(), this.client.getApiVersion(),
+                managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch, accept, context))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource on successful completion of {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<TenantActivityLogAlertResourceInner> updateAsync(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
+        return updateWithResponseAsync(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch)
+            .flatMap(res -> Mono.justOrEmpty(res.getValue()));
+    }
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<TenantActivityLogAlertResourceInner> updateWithResponse(String managementGroupName,
+        String alertRuleName, TenantAlertRulePatchObject tenantActivityLogAlertRulePatch, Context context) {
+        if (this.client.getEndpoint() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        if (tenantActivityLogAlertRulePatch == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter tenantActivityLogAlertRulePatch is required and cannot be null."));
+        } else {
+            tenantActivityLogAlertRulePatch.validate();
+        }
+        final String accept = "application/json";
+        return service.updateSync(this.client.getEndpoint(), this.client.getApiVersion(), managementGroupName,
+            alertRuleName, tenantActivityLogAlertRulePatch, accept, context);
+    }
+
+    /**
+     * Updates 'tags' and 'enabled' fields in an existing Tenant Alert rule. This method is used to update the Alert
+     * rule tags, and to enable or disable the Alert rule. To update other fields use CreateOrUpdate operation.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param tenantActivityLogAlertRulePatch Parameters supplied to the operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a Tenant Activity Log Alert rule resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public TenantActivityLogAlertResourceInner update(String managementGroupName, String alertRuleName,
+        TenantAlertRulePatchObject tenantActivityLogAlertRulePatch) {
+        return updateWithResponse(managementGroupName, alertRuleName, tenantActivityLogAlertRulePatch, Context.NONE)
+            .getValue();
+    }
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the {@link Response} on successful completion of {@link Mono}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<Response<Void>> deleteWithResponseAsync(String managementGroupName, String alertRuleName) {
+        if (this.client.getEndpoint() == null) {
+            return Mono.error(
+                new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            return Mono.error(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.delete(this.client.getEndpoint(), this.client.getApiVersion(),
+                managementGroupName, alertRuleName, accept, context))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return A {@link Mono} that completes when a successful response is received.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<Void> deleteAsync(String managementGroupName, String alertRuleName) {
+        return deleteWithResponseAsync(managementGroupName, alertRuleName).flatMap(ignored -> Mono.empty());
+    }
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> deleteWithResponse(String managementGroupName, String alertRuleName, Context context) {
+        if (this.client.getEndpoint() == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException(
+                    "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (managementGroupName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter managementGroupName is required and cannot be null."));
+        }
+        if (alertRuleName == null) {
+            throw LOGGER.atError()
+                .log(new IllegalArgumentException("Parameter alertRuleName is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        return service.deleteSync(this.client.getEndpoint(), this.client.getApiVersion(), managementGroupName,
+            alertRuleName, accept, context);
+    }
+
+    /**
+     * Delete a Tenant Activity Log Alert rule.
+     * 
+     * @param managementGroupName The management group ID.
+     * @param alertRuleName The name of the Tenant Activity Log Alert rule.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void delete(String managementGroupName, String alertRuleName) {
+        deleteWithResponse(managementGroupName, alertRuleName, Context.NONE);
     }
 
     /**

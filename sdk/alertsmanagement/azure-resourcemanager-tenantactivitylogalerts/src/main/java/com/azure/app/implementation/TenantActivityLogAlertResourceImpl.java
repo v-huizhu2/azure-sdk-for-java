@@ -8,6 +8,7 @@ import com.azure.app.fluent.models.TenantActivityLogAlertResourceInner;
 import com.azure.app.models.ActionList;
 import com.azure.app.models.AlertRuleAllOfCondition;
 import com.azure.app.models.TenantActivityLogAlertResource;
+import com.azure.core.management.SystemData;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +36,6 @@ public final class TenantActivityLogAlertResourceImpl implements TenantActivityL
         return this.innerModel().type();
     }
 
-    public String location() {
-        return this.innerModel().location();
-    }
-
     public Map<String, String> tags() {
         Map<String, String> inner = this.innerModel().tags();
         if (inner != null) {
@@ -46,6 +43,14 @@ public final class TenantActivityLogAlertResourceImpl implements TenantActivityL
         } else {
             return Collections.emptyMap();
         }
+    }
+
+    public String location() {
+        return this.innerModel().location();
+    }
+
+    public SystemData systemData() {
+        return this.innerModel().systemData();
     }
 
     public String tenantScope() {

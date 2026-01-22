@@ -7,7 +7,8 @@ package com.azure.app.fluent.models;
 import com.azure.app.models.ActionList;
 import com.azure.app.models.AlertRuleAllOfCondition;
 import com.azure.core.annotation.Fluent;
-import com.azure.core.management.Resource;
+import com.azure.core.management.ProxyResource;
+import com.azure.core.management.SystemData;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.json.JsonReader;
 import com.azure.json.JsonToken;
@@ -20,11 +21,26 @@ import java.util.Map;
  * A Tenant Activity Log Alert rule resource.
  */
 @Fluent
-public final class TenantActivityLogAlertResourceInner extends Resource {
+public final class TenantActivityLogAlertResourceInner extends ProxyResource {
     /*
      * The Activity Log Alert rule properties of the resource.
      */
     private AlertRuleProperties innerProperties = new AlertRuleProperties();
+
+    /*
+     * Resource tags.
+     */
+    private Map<String, String> tags;
+
+    /*
+     * The geo-location where the resource lives
+     */
+    private String location;
+
+    /*
+     * Azure Resource Manager metadata containing createdBy and modifiedBy information.
+     */
+    private SystemData systemData;
 
     /*
      * The type of the resource.
@@ -57,6 +73,55 @@ public final class TenantActivityLogAlertResourceInner extends Resource {
     }
 
     /**
+     * Get the tags property: Resource tags.
+     * 
+     * @return the tags value.
+     */
+    public Map<String, String> tags() {
+        return this.tags;
+    }
+
+    /**
+     * Set the tags property: Resource tags.
+     * 
+     * @param tags the tags value to set.
+     * @return the TenantActivityLogAlertResourceInner object itself.
+     */
+    public TenantActivityLogAlertResourceInner withTags(Map<String, String> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    /**
+     * Get the location property: The geo-location where the resource lives.
+     * 
+     * @return the location value.
+     */
+    public String location() {
+        return this.location;
+    }
+
+    /**
+     * Set the location property: The geo-location where the resource lives.
+     * 
+     * @param location the location value to set.
+     * @return the TenantActivityLogAlertResourceInner object itself.
+     */
+    public TenantActivityLogAlertResourceInner withLocation(String location) {
+        this.location = location;
+        return this;
+    }
+
+    /**
+     * Get the systemData property: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+     * 
+     * @return the systemData value.
+     */
+    public SystemData systemData() {
+        return this.systemData;
+    }
+
+    /**
      * Get the type property: The type of the resource.
      * 
      * @return the type value.
@@ -84,24 +149,6 @@ public final class TenantActivityLogAlertResourceInner extends Resource {
     @Override
     public String id() {
         return this.id;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TenantActivityLogAlertResourceInner withLocation(String location) {
-        super.withLocation(location);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TenantActivityLogAlertResourceInner withTags(Map<String, String> tags) {
-        super.withTags(tags);
-        return this;
     }
 
     /**
@@ -273,9 +320,9 @@ public final class TenantActivityLogAlertResourceInner extends Resource {
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
-        jsonWriter.writeStringField("location", location());
-        jsonWriter.writeMapField("tags", tags(), (writer, element) -> writer.writeString(element));
         jsonWriter.writeJsonField("properties", this.innerProperties);
+        jsonWriter.writeMapField("tags", this.tags, (writer, element) -> writer.writeString(element));
+        jsonWriter.writeStringField("location", this.location);
         return jsonWriter.writeEndObject();
     }
 
@@ -302,14 +349,16 @@ public final class TenantActivityLogAlertResourceInner extends Resource {
                     deserializedTenantActivityLogAlertResourceInner.name = reader.getString();
                 } else if ("type".equals(fieldName)) {
                     deserializedTenantActivityLogAlertResourceInner.type = reader.getString();
-                } else if ("location".equals(fieldName)) {
-                    deserializedTenantActivityLogAlertResourceInner.withLocation(reader.getString());
-                } else if ("tags".equals(fieldName)) {
-                    Map<String, String> tags = reader.readMap(reader1 -> reader1.getString());
-                    deserializedTenantActivityLogAlertResourceInner.withTags(tags);
                 } else if ("properties".equals(fieldName)) {
                     deserializedTenantActivityLogAlertResourceInner.innerProperties
                         = AlertRuleProperties.fromJson(reader);
+                } else if ("tags".equals(fieldName)) {
+                    Map<String, String> tags = reader.readMap(reader1 -> reader1.getString());
+                    deserializedTenantActivityLogAlertResourceInner.tags = tags;
+                } else if ("location".equals(fieldName)) {
+                    deserializedTenantActivityLogAlertResourceInner.location = reader.getString();
+                } else if ("systemData".equals(fieldName)) {
+                    deserializedTenantActivityLogAlertResourceInner.systemData = SystemData.fromJson(reader);
                 } else {
                     reader.skipChildren();
                 }
